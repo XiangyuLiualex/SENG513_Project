@@ -82,3 +82,7 @@ body {
     height: 25%;
 
 }
+
+#manageMyRoom {
+    display: none;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <title>Draw Board</title>
+</head>
+<body>
+    <div id="but">
+        <button>room</button>
+    </div>
+    <div id="manageMyRoom">
+        <div id="joinRoom">
+            <button>joinRoom</button>
+        </div>
+        <div id="visibility">
+            <label>Room's Visibility</label>
+            <button id="public">PUBLIC</button>
+            <button id="private">PRIVATE</button>
+        </div>
+        <div id="status">
+            <label>Room's Status</label>
+            <button id="open">OPEN</button>
+            <button id="closed">CLOSED</button>
+        </div>
+        <div id="delete">
+            <button>Delete Room</button>
+        </div>
+        <div id="close">
+            <button>CLOSE</button>
+        </div>
+    </div>
+    <script src="./socket.io/socket.io.js"></script>
+    <script src="./scripts/user.js"></script>
+</body>
+</html>
