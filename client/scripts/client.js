@@ -45,7 +45,6 @@ canvas.addEventListener(myMove, e => {
 })
 
 function update(xStart, yStart, xEnd, yEnd, color) {
-    console.log('updae');
     socket.emit('update', JSON.stringify({ xStart, yStart, xEnd, yEnd, color }));
 }
 function drawLine(data) {//draw a line in canvas
@@ -57,3 +56,17 @@ function drawLine(data) {//draw a line in canvas
     canvasContext.strokeStyle = data.color;
     canvasContext.stroke();
 }
+socket.on('toDB', ()=>{
+    socket.emit('toDB', JSON.stringify(canvas.toDataURL()))
+})
+
+socket.on('history', (data) => {
+    if (data) {
+        data = JSON.parse(data)
+        let img = new Image;
+        img.onload = function () {
+            canvasContext.drawImage(img,0,0); // Or at whatever offset you like
+        };
+        img.src = data;
+    }
+})

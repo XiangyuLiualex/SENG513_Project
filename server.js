@@ -19,13 +19,54 @@ io = socketIO(server);//build a scoket io server based on express http server
 //The following code only handles in room canvas logic
 //The following code currently assume there is only 1 room
 
-let history = [];//need to modify to multi-room version
+
+//when there is a socket io room opening, 
+//set an 1 sec interval to ask the first user in the room 
+//to send a canvas.toDataURL() to server and store it in db.
+function historyDBUpdate() {
+    Array.from(io.sockets.adapter.rooms).forEach(async room => {
+        if(io.sockets.adapter.rooms.get(room[0]).size ==0){
+            io.in(room[0]).socketsLeave(room[0]);
+        }else{
+            let mySockets = await io.in(room[0]).fetchSockets();
+            mySockets[0].emit('toDB');
+        }
+    });
+}
+setInterval(historyDBUpdate, 1000);
+//when user joins a room, 
+//server sends the canvas url to client 
+//and client use canvasContext.drawImage() to draw canvas history
+let historyForDB = {};
+
 io.on('connection', async (socket) => {
+    //need to modify to multi-room version, 
+    //the client need to know and store room id
+
+    //--code to get roomID from client-------
+    let roomID = 'test';
+
+    //join the default testing room
+    socket.join(roomID);
+
+    if (io.sockets.adapter.rooms.get(roomID).size > 0) {
+        let mySockets = await io.in(roomID).fetchSockets();
+        mySockets[0].emit('toDB');
+        console.log('join');
+    }
+
     //sync the canvas history to new user
-    for (let item of history)
-        socket.emit('draw', item);
+    if(historyForDB[roomID]){
+        socket.emit('history', historyForDB[roomID]);
+    }
+
+
     socket.on('update', (data) => {//need to modify to multi-room version
-        history.push(data);
-        socket.emit('draw',data);
+        //roomID = JSON.parse(data).roomID
+        io.sockets.in(roomID).emit('draw',data);
+    })
+    socket.on('toDB', (data) => {// need to accept room id in the future-----------------------------------------------
+        //roomID = JSON.parse(data).roomID
+        historyForDB[roomID] = data;
     })
 })
