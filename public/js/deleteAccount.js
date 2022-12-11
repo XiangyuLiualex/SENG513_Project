@@ -21,7 +21,7 @@ async function sendRequest(){
         response.json().then(data => {
             console.log(typeof data);
             if(data['stat']==1){
-                alert("Deleting Acconut Successfully!!!");
+                alert("Deleting Account Successfully!!!");
             }else if (data['stat']==0){
                 alert("Deleting Account Fail!");
             }else if(data['stat']==69){

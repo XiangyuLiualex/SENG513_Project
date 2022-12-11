@@ -23,9 +23,9 @@ async function sendRequest(){
         response.json().then(data => {
             console.log(typeof data);
             if(data['stat']==1){
-                alert("Changed Password Successfully!!!");
+                alert("Changed Username Successfully!!!");
             }else if (data['stat']==0){
-                alert("Changed Password fail!");
+                alert("Changed Username fail!");
             }else if(data['stat']==69){
                 alert("You have entered wrong username or password!");
             } 
