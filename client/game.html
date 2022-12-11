@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Draw Colab - Canvas</title>
+    <link rel="stylesheet" href="styles/canvas_client.css">
 </head>
 
 <body>
@@ -14,16 +15,16 @@
             <div id="size_picker">
                 <span>Stroke Size: </span>
                 <!--could use option list instead of input bar-->
-                <input type="number">
+                <input type="number" value="3">
                 <span>&nbsp;px</span>
             </div>
             <div id="color_picker">
-                <!--need to choose one from the canvas palette or buttons-->
-                <canvas id="palette">
-
-                </canvas>
                 <div id="color_buttons">
-
+                    <button class="color_button" id="color_button_1"></button>
+                    <button class="color_button" id="color_button_2"></button>
+                    <button class="color_button" id="color_button_3"></button>
+                    <button class="color_button" id="color_button_4"></button>
+                    <button class="color_button" id="color_button_5"></button>
                 </div>
             </div>
         </div>
@@ -32,7 +33,7 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.0/socket.io.js"></script>
-    <script src="/scripts/client.js"></script>
+    <script src="/scripts/canvas_client.js"></script>
 </body>
 
 </html>
