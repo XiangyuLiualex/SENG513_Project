@@ -37,7 +37,7 @@ Array.from(colorButtons).forEach((colorButton) => {
         colorButton.style.border = 'grey solid';
     })
 });
-let strokeInput = document.getElementsByTagName('input')[0];
+let strokeInput = document.getElementById('stroke_size');
 canvasContext.lineWidth = strokeInput.value;
 strokeInput.addEventListener('input', () => {
     canvasContext.lineWidth = strokeInput.value;
