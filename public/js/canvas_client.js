@@ -21,6 +21,7 @@ STROKE = 5;
 let drawing = false;
 let updating = false;
 let currentColor = 'black';
+let currentStroke;
 let canvas = document.getElementsByTagName("canvas")[0];
 canvas.height = HEIGHT;
 canvas.width = WIDTH;
@@ -32,17 +33,20 @@ homeButton.addEventListener('click',()=>{
     window.location.href = "mainPage.html"+"?userName="+username;
 })
 let colorButtons = document.getElementsByClassName('color_button');
+let initialClorButton = document.getElementById('color_button_1');
+initialClorButton.style.border = 'grey 4px solid';
 Array.from(colorButtons).forEach((colorButton) => {
     colorButton.addEventListener('click', () => {
         currentColor = getComputedStyle(colorButton, null).getPropertyValue("background-color");
         canvasContext.strokeStyle = currentColor;
         Array.from(colorButtons).forEach((button) => {
-            button.style.border = 'grey none';
+            button.style.border = 'grey 4px none';
         })
-        colorButton.style.border = 'grey solid';
+        colorButton.style.border = 'grey 4px solid';
     })
 });
 let strokeInput = document.getElementById('stroke_size');
+currentStroke = strokeInput;
 canvasContext.lineWidth = strokeInput.value;
 strokeInput.addEventListener('input', () => {
     canvasContext.lineWidth = strokeInput.value;
@@ -72,7 +76,7 @@ canvas.addEventListener(myMove, e => {
     if (drawing) {
         let xInCanvas = e.clientX - canvas.getBoundingClientRect().left;
         let yInCanvas = e.clientY - canvas.getBoundingClientRect().top;
-        update(xOffset, yOffset, xInCanvas, yInCanvas, currentColor);
+        update(xOffset, yOffset, xInCanvas, yInCanvas, currentColor, currentStroke);
         toDB();
         xOffset = xInCanvas;
         yOffset = yInCanvas;
@@ -81,8 +85,8 @@ canvas.addEventListener(myMove, e => {
 
 socket.emit('join', JSON.stringify({room: roomID}));
 
-function update(xStart, yStart, xEnd, yEnd, color) {
-    socket.emit('update', JSON.stringify({room: roomID, data: { xStart, yStart, xEnd, yEnd, color }}));
+function update(xStart, yStart, xEnd, yEnd, color, width) {
+    socket.emit('update', JSON.stringify({room: roomID, data: { xStart, yStart, xEnd, yEnd, color, width }}));
 }
 function toDB() {
     if (!updating) {
@@ -96,11 +100,11 @@ function toDB() {
 }
 function drawLine(data) {//draw a line in canvas
     canvasContext.beginPath();
+    canvasContext.strokeStyle = data.color;
+    canvasContext.lineWidth = data.width;
     canvasContext.moveTo(data.xStart, data.yStart);
     canvasContext.lineTo(data.xEnd, data.yEnd);
-    canvasContext.strokeStyle = data.color;
     canvasContext.stroke();
-    canvasContext.strokeStyle = currentColor;
 }
 /*socket.on('toDB', ()=>{
     socket.emit('toDB', JSON.stringify(canvas.toDataURL()))

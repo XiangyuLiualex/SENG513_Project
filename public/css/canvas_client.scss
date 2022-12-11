@@ -3,15 +3,36 @@
     flex-direction: row;
 }
 
+#tool_bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start ;
+    width: 60%;
+    height: 10%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+#canvas_container{
+    margin-top: 10%;
+}
+
 input{
     width: 50px;
 }
+#color_buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 .color_button{
-    border: grey none;
-    margin: 0;
-    height: 10px;
-    width: 10px;
+    border: grey 4px none;
+    margin: 10px;
+    margin-top: 0;
+    height: 20px;
+    width: 20px;
 }
 
 #color_button_1{
