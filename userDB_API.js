@@ -137,7 +137,7 @@ app.post("/changepassword",(req,res)=>{
     var username=req.body.username
     var newpassword=req.body.newpassword
     let ans={stat:"",content:""}
-    
+  //  var correctInfo = false
     //print bubby
     console.log("change password in USERDB_API.js")
     
@@ -150,16 +150,64 @@ app.post("/changepassword",(req,res)=>{
                if(data.length==1){
                 let sql;
                 sql = 'UPDATE userInfo SET password = ? WHERE username = ?';
-                db.run(sql, [newpassword, username], (err,data) => {
-                    console.log(data)
+                db.run(sql, [newpassword, username], (err) => {
+                    console.log("Reset password sucessfully")
                     if(!err){
+                       // correctInfo = true;
                         ans['stat']=1;
                         ans['content']='You have changed your password successfully!';
                        // console.error(err.message);
                         return res.send(JSON.stringify(ans))
+                    }else {
+                        ans['stat']=0;
+                        ans['content']='You have entered the right pasword and username, but changing failed!';
+                        return res.send(JSON.stringify(ans))
+                    }
+                  
+               });
+                    
+               }
+               else {
+                    ans['stat']=69;
+                    ans['content']='You have entered wrong username or password lmao!';
+                   return res.send(JSON.stringify(ans))
+               }
+           })
+       }
+    })
+})
+
+
+
+
+app.post("/changeUsername",(req,res)=>{
+    var password=req.body.password
+    var username=req.body.username
+    var newUsername=req.body.newUsername
+    let ans={stat:"",content:""}
+    
+    //print bubby
+    console.log("change UserName in USERDB_API.js")
+    
+
+    console.log("USERNAME: "+username+"\npassword: "+password+"\n newPassword: "+newUsername)
+    var db= new sqlite3.Database("./public/db/userAccount.db",(err,data)=>{
+       if(!err){
+            db.all('SELECT username,password FROM userInfo where username="'+username+'" and password="'+password+'"',(err,data)=>{
+                console.log(data)
+               if(data.length==1){
+                let sql;
+                sql = 'UPDATE userInfo SET username = ? WHERE username = ?';
+                db.run(sql, [newUsername, username], (err,data) => {
+                    console.log("Reset Username sucessfully")
+                    if(!err){
+                        ans['stat']=1;
+                        ans['content']='You have changed your username successfully!';
+                       // console.error(err.message);
+                        return res.send(JSON.stringify(ans))
                     }else{
                         ans['stat']=0;
-                        ans['content']='You have entered wrong username or password lmao !';
+                        ans['content']='You have entered the right pasword and username, but changing failed!';
                         return res.send(JSON.stringify(ans))
                     }
                   
@@ -176,39 +224,6 @@ app.post("/changepassword",(req,res)=>{
     })
 })
 
-
-// update users password
-// let sql;
-// sql = 'UPDATE users SET password = ? WHERE username = ?';
-// var newpassword=req.body.newpassword
-// var username=req.body.username
-// db.run(sql, [newpassword, username], (err) => {
-//     console.log(data)
-//     if (err) {
-//         return console.error(err.message);
-//     }
-//     console.log(`Row(s) updated: ${this.changes}`);
-
-
-// });
-
-// app.post('/changepassword', function (req, res) {
-//     User.findByUsername(req.body.username, (err, user) => {
-//         if (err) {
-//             res.send(err);
-//         } else {
-//             user.changePassword(req.body.oldpassword, 
-//             req.body.newpassword, function (err) {
-//                 if (err) {
-//                     res.send(err);
-//                 } else {
-//                     res.send('successfully change password')
-//                     console.log('successfully change password')
-//                 }
-//             });
-//         }
-//     });
-//  });
 
 
 app.get("/show_data",(req,res)=>{
