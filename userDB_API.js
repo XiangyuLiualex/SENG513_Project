@@ -147,15 +147,15 @@ app.post("/changepassword",(req,res)=>{
        if(!err){
             db.all('SELECT username,password FROM userInfo where username="'+username+'" and password="'+password+'"',(err,data)=>{
                 console.log(data)
-               if(!err){
+               if(data.length==1){
                 let sql;
-                sql = 'UPDATE users SET password = ? WHERE username = ?';
+                sql = 'UPDATE userInfo SET password = ? WHERE username = ?';
                 db.run(sql, [newpassword, username], (err,data) => {
                     console.log(data)
                     if(!err){
                         ans['stat']=1;
                         ans['content']='You have changed your password successfully!';
-                        console.error(err.message);
+                       // console.error(err.message);
                         return res.send(JSON.stringify(ans))
                     }else{
                         ans['stat']=0;
