@@ -134,6 +134,36 @@ body {
     margin: 0.5rem;
 }
 
+.public-room-button{
+    height: 4rem;
+    width: 90%;
+    border: 3px solid rgba(32, 0, 0, 0.6);
+    border-radius: 2rem;
+    background-color: transparent;
+    color: rgba(32, 0, 0, 0.6);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin: 0.5rem;
+}
+
+.room-star{
+    margin-top: 1.2rem;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}
+
+.room-star-selected{
+    margin-top: 1.2rem;
+    cursor: pointer;
+    color: gold;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}
+
 .room-code{
     height: 3rem;
     border: 3px solid rgba(32, 0, 0, 0.6);
@@ -279,6 +309,16 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    padding: 1rem;
+    margin: 1rem;
+    background-color: transparent;
+    cursor: pointer;
+    color: black;
+}
+.btn-settings{
+    position: absolute;
+    top: 4rem;
+    left: 0.1rem;
     padding: 1rem;
     margin: 1rem;
     background-color: transparent;
