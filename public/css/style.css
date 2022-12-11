@@ -156,12 +156,8 @@ body {
     -webkit-text-stroke-color: black;
 }
 
-.room-star-selected{
-    margin-top: 1.2rem;
-    cursor: pointer;
-    color: gold;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: black;
+.room-star:hover{
+    color:gold;
 }
 
 .room-code{
@@ -200,7 +196,7 @@ body {
     flex-basis: 100%;
     flex: 1;
     padding: 2rem;
-    justify-content: center; 
+    justify-content: top; 
     align-items: center; 
     overflow-y: scroll
 }
