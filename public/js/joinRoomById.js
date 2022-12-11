@@ -20,10 +20,9 @@ async function sendRequest(){
             console.log(typeof data);
             if(data['stat']==1){
                 alert("Join Room Successfully!!!");
-            }else if (data['stat']==0){
-                alert("Join Room fail!");
+        
             }else if(data['stat']==69){
-                alert("Room ID Invalid!");
+                alert("Room ID Invalid or Room is not open!");
             } 
             console.log(data);
         });
