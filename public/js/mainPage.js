@@ -41,7 +41,7 @@ async function createPublicRoom(){
         console.log(typeof data);
         console.log(data);
     });
-    window.location.href = '../client/game.html'+'?owner='+owner+'&roomID='+roomID;
+    window.location.href = '../html/game.html'+'?owner='+owner+'&roomID='+roomID;
 }
 
 async function createPrivateRoom(){
@@ -70,7 +70,7 @@ async function createPrivateRoom(){
         console.log(typeof data);
         console.log(data);
     });
-    window.location.href = '../client/game.html'+'?owner='+owner+'&roomID='+roomID;
+    window.location.href = '../html/game.html'+'?owner='+owner+'&roomID='+roomID;
 
 }
 
