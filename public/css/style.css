@@ -82,3 +82,54 @@ body {
     height: 25%;
 
 }
+
+/* MainPage CSS */
+
+.mainPageBox{
+    display:flex;
+    justify-content: center;
+    background-color:white;
+    width: 70%;
+    justify-content: center;
+    height: 80%;
+    align-items: center;
+    vertical-align:middle;
+    border-radius: 5%;
+
+}
+
+#createRoom{
+    display: flex;
+}
+
+#joinRoom{
+    display: flex;
+}
+
+#createPublicRoomButton{
+    font-size: 24px;
+    border-radius: 8px;
+}
+
+
+#createPrivateRoomButton{
+    font-size: 24px;
+    border-radius: 8px;
+}
+
+#logo{
+    height: 50px;
+}
+
+#insideMainBox{
+    display: flex;
+}
+
+#joinRoomInput{
+    width: 400px;
+}
+
+#joinRoomButton{
+    font-size: 24px;
+    border-radius: 8px;
+}

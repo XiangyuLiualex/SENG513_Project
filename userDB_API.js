@@ -13,20 +13,20 @@ app.get('/', function (req, res) {
 //public the codes
 app.use(express.static(__dirname + '/public'));
 
-app.get("/create_data",(req,res)=>{
-    var db = new sqlite3.Database('./public/mydb.db',(err,data)=>{
-        if(!err){
-            db.run('CREATE TABLE IF NOT EXISTS users(id  integer primary key autoincrement,email text, password text)',(err)=>{
-                if(!err){
-                        console.log('table is created sucessfully!')
-                }
-                else{
-                    console.log(err.message)
-                }
-            })
-        }
-    })
-})
+// app.get("/create_data",(req,res)=>{
+//     var db = new sqlite3.Database('./public/userAccount.db',(err,data)=>{
+//         if(!err){
+//             db.run('CREATE TABLE IF NOT EXISTS users(id  integer primary key autoincrement,email text, password text)',(err)=>{
+//                 if(!err){
+//                         console.log('table is created sucessfully!')
+//                 }
+//                 else{
+//                     console.log(err.message)
+//                 }
+//             })
+//         }
+//     })
+// })
 
 
 app.post('/signup',(req,res)=>{
@@ -34,7 +34,7 @@ app.post('/signup',(req,res)=>{
     let ans={stat:"",content:""}
     if(user!=undefined){
         console.log(user)
-        var db = new sqlite3.Database('./public/db/userAccount.db',(err,data)=>{
+        var db = new sqlite3.Database('./public/db/database.db',(err,data)=>{
             if(!err){
                 let exist=false;
                 db.all('select * from userInfo where username = "'+user.username+'"', (err,data)=>{
@@ -71,7 +71,7 @@ app.post('/signup',(req,res)=>{
                     }
                 })
 
-                
+   
                 }
             })
     }
@@ -90,7 +90,7 @@ app.post("/signin",(req,res)=>{
     let ans={stat:"",content:""}
 
     console.log("email: "+username+"\npassword: "+password)
-    var db= new sqlite3.Database("./public/db/userAccount.db",(err,data)=>{
+    var db= new sqlite3.Database("./public/db/database.db",(err,data)=>{
        if(!err){
            db.all('SELECT username,password FROM userInfo where username="'+username+'" and password="'+password+'"',(err,data)=>{
                 console.log(data)
@@ -124,23 +124,66 @@ app.post("/signin",(req,res)=>{
 //     })
 // }) 
 
-app.get("/show_data",(req,res)=>{
-    var db=new sqlite3.Database("mydb.db",(err)=>{
-        if(!err){
-            db.all('select * from users', (err,data)=>{
-                if(err){
-                    console.log(err);
-                }else{
-                    console.log("Done");
-                    res.send(data);
-                }
-            });
-        }else{
-            console.log("some error in select data")
-        }
-    })
+// app.get("/show_data",(req,res)=>{
+//     var db=new sqlite3.Database("mydb.db",(err)=>{
+//         if(!err){
+//             db.all('select * from users', (err,data)=>{
+//                 if(err){
+//                     console.log(err);
+//                 }else{
+//                     console.log("Done");
+//                     res.send(data);
+//                 }
+//             });
+//         }else{
+//             console.log("some error in select data")
+//         }
+//     })
+// })
+
+// createRoomTable
+app.post("/createRoom",(req,res)=>{
+    var room = req.body;
+    var ans={stat:"",content:""}
+    var db = new sqlite3.Database('./public/db/database.db',(err,data)=>{
+    if(!err){
+                // db.run('CREATE TABLE IF NOT EXISTS rooms(roomID text primary key, openStatus text, publicStatus text , owner text, canvasHistory text)',(err)=>{
+                //     if(!err){
+                //         console.log('rooms table is created sucessfully!')
+                //     }
+                //     else{
+                //         console.log(err.message)
+                //     }
+                //     res.send(JSON.stringify("ok"))
+                // // }
+                //db.run('INSERT INTO rooms values("'+room.roomID+'","'+user.password+'")',(err)=>{
+                db.run('INSERT INTO rooms values("'+room.roomID+'","'+room.openStatus+'","'+room.publicStatus+'","'+room.owner+'","'+room.canvasHistory+'")',(err)=>{
+                    if(!err){
+                        console.log("inserted!")
+                        ans['stat']=1;
+                        ans['content']='create successfully!';
+                        res.send(JSON.stringify(ans))
+                        }
+                    else{
+                        ans['stat']=0;
+                        ans['content']='Error!';
+                        console.log(err);
+                        res.send(JSON.stringify(ans))
+                    }
+                })
+            }
+    });
 })
+    
+
+
+
+    
+
+
 
 app.listen(4000,()=>{
     console.log("your server has been started..   ");
 })
+
+
