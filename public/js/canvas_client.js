@@ -2,7 +2,8 @@
 //---get room id from url----
 let urlString = window.location.search;
 let urlParams = new URLSearchParams(urlString);
-let roomID = urlParams.get("roomId");
+let roomID = urlParams.get("roomID");
+console.log(roomID)
 let username = urlParams.get("userName");
 
 /*

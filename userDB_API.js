@@ -182,7 +182,7 @@ app.post("/createRoom", (req, res) => {
 
 //--------------------------------------------------------------------testing without actual db---------------------------------
 let historyForDB = {};
-
+let db = new sqlite3.Database('./public/db/database.db');
 io.on('connection', async (socket) => {
     socket.on('join', async (data) => {
         console.log('join');
@@ -190,14 +190,10 @@ io.on('connection', async (socket) => {
         //join the default testing room
         socket.join(roomID);
         //sync the canvas history to new user
-        if (historyForDB[roomID]) {// if there exists history for the current room
-            socket.emit('history', historyForDB[roomID]);
-        }
-
-        /*let currentCanvasHostory = getCanvasHistory(roomID);
+        let currentCanvasHostory = getCanvasHistory(roomID);
         if(currentCanvasHostory){
             socket.emit('history', currentCanvasHostory);
-        }*/
+        }
     })
 
     socket.on('update', (newUpdate) => {//need to modify to multi-room version
@@ -210,28 +206,30 @@ io.on('connection', async (socket) => {
         newCanvas = JSON.parse(newCanvas);
         let roomID = newCanvas.room;
         let data =  newCanvas.data;
-        historyForDB[roomID] = data;
-        //updateCanvasHistory(data,roomID);
+        console.log(roomID);
+        updateCanvasHistory(data,roomID);
     })
 })
 
-function updateCanvasHistory(canvas, room) {
-    db.run('UPDATE room SET canvas_history = ? WHERE roomId =?', [canvas, room], function (err) {
+function updateCanvasHistory(canvas, roomID) {
+    db.run('UPDATE rooms SET canvasHistory = ? WHERE roomID=?', [canvas, roomID], function (err) {
         if (err) {
             console.log(err.message);
         } else {
-            console.log('Room: ' + room + ', canvas history updated.');
+            console.log('Room: ' + roomID + ', canvas history updated.');
         }
     })
 }
 
-function getCanvasHistory(room) {
+function getCanvasHistory(roomID) {
     let canvasHistory = null;
-    db.run('SELECT canvas_history FROM room WHERE roomId = ?', [room], function (err, data) {
+    db.run('SELECT canvasHistory FROM rooms WHERE roomID = ?', [roomID], function (err, data) {
         if (err) {
             console.log(err.message);
         } else {
+            console.log('Room: ' + roomID + ',get history');
             canvasHistory = data;
+            console.log(canvasHistory)
         }
     })
     return canvasHistory;
