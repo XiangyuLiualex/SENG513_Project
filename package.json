@@ -1,0 +1,25 @@
+{
+  "name": "seng513_project",
+  "version": "1.0.0",
+  "description": "Please install the node-sqlite3 and express package from npm using the following command:     npm init -y     npm install sqlite3 express",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XiangyuLiualex/SENG513_Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XiangyuLiualex/SENG513_Project/issues"
+  },
+  "homepage": "https://github.com/XiangyuLiualex/SENG513_Project#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.2"
+  }
+}

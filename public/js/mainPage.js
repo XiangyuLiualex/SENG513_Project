@@ -37,11 +37,11 @@ async function createPublicRoom(){
         })
         });
 
-        response.json().then(data => {
-            console.log(typeof data);
-            console.log(data);
-        });
-
+    response.json().then(data => {
+        console.log(typeof data);
+        console.log(data);
+    });
+    window.location.href = '../client/game.html'+'?owner='+owner+'&roomID='+roomID;
 }
 
 async function createPrivateRoom(){
@@ -66,11 +66,11 @@ async function createPrivateRoom(){
         })
         });
 
-        response.json().then(data => {
-            console.log(typeof data);
-            console.log(data);
-        });
-
+    response.json().then(data => {
+        console.log(typeof data);
+        console.log(data);
+    });
+    window.location.href = '../client/game.html'+'?owner='+owner+'&roomID='+roomID;
 
 }
 
@@ -83,3 +83,7 @@ function makeid(length) {
     }
     return result;
 }
+
+
+
+
