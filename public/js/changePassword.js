@@ -40,9 +40,11 @@ async function sendRequest(){
             console.log(typeof data);
             if(data['stat']==1){
                 alert("Changed Password Successfully!!!");
-            }else{
+            }else if (data['stat']==0){
                 alert("Changed Password fail!");
-            }
+            }else if(data['stat']==69){
+                alert("You have entered wrong username or password!");
+            } 
             console.log(data);
         });
 
@@ -140,4 +142,3 @@ async function sendRequest(){
 // });
   
   
-app.listen(3000);
