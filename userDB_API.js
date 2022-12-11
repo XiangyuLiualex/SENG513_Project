@@ -1,3 +1,5 @@
+const { rejects } = require("assert");
+const { resolve } = require("path");
 let sqlite3 = require("sqlite3");
 let express = require('express'),
     app = express(),
@@ -190,9 +192,10 @@ io.on('connection', async (socket) => {
         //join the default testing room
         socket.join(roomID);
         //sync the canvas history to new user
-        let currentCanvasHostory = getCanvasHistory(roomID);
-        if(currentCanvasHostory){
-            socket.emit('history', currentCanvasHostory);
+        let currentCanvasHistory = await getCanvasHistory(roomID);
+        if(currentCanvasHistory!=null){
+
+            socket.emit('history', currentCanvasHistory);
         }
     })
 
@@ -222,15 +225,17 @@ function updateCanvasHistory(canvas, roomID) {
 }
 
 function getCanvasHistory(roomID) {
-    let canvasHistory = null;
-    db.run('SELECT canvasHistory FROM rooms WHERE roomID = ?', [roomID], function (err, data) {
-        if (err) {
-            console.log(err.message);
-        } else {
-            console.log('Room: ' + roomID + ',get history');
-            canvasHistory = data;
-            console.log(canvasHistory)
-        }
+    return new Promise((resolve,reject)=>{
+        db.get("SELECT canvasHistory FROM rooms WHERE roomID = '" + roomID + "'", function (err, data) {
+            if (err) {
+                console.log(err.message);
+                reject(err);
+            } else {
+                console.log('Room: ' + roomID + ',get history');
+                resolve(data.canvasHistory);
+            }
+        })
     })
-    return canvasHistory;
+
+
 }
