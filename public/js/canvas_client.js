@@ -8,7 +8,7 @@ let username = urlParams.get("userName");
 
 /*
 //--send room id to next page
-window.location.href = "NEXT_PAGE.html"+"?roomId="+roomId+"$userName="+username;
+window.location.href = "clientCanvas.html"+"?roomID="+roomID+"&userName="+username;
 */
 
 
@@ -106,9 +106,6 @@ function drawLine(data) {//draw a line in canvas
     canvasContext.lineTo(data.xEnd, data.yEnd);
     canvasContext.stroke();
 }
-/*socket.on('toDB', ()=>{
-    socket.emit('toDB', JSON.stringify(canvas.toDataURL()))
-})*/
 
 socket.on('history', (data) => {
     if (data) {
