@@ -156,6 +156,12 @@ body {
     -webkit-text-stroke-color: black;
 }
 
+.room-trash{
+    margin-top: 1.2rem;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+}
+
 .room-star:hover{
     color:gold;
 }

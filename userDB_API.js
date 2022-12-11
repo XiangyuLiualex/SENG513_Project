@@ -230,6 +230,60 @@ app.post('/subscribed_rooms/',(req,res)=>{
     }
 })
 
+app.delete('/subscribed_rooms/',(req,res)=>{
+    console.log(req.body);
+    var user = req.body;
+    let ans={stat:"",content:""}
+    if(user!=undefined){
+        console.log(user)
+        var db = new sqlite3.Database('./public/db/database.db',(err,data)=>{
+            if(!err){
+                let exist=false;
+                db.all('select * from subscribedRooms where username = "'+user.username+'" and roomId = "'+user.roomId+'"', (err,data)=>{
+                    if(!err){
+                        console.log("length: "+data.length);
+                        if(data.length>0){
+                            exist=true;
+                            console.log("stop!")
+                        }
+                        console.log(exist)
+                        if(exist){
+
+                            db.run('delete from subscribedRooms where username = "'+user.username+'" and roomId = "'+user.roomId+'"',(err)=>{
+                                if(!err){
+                                    ans['stat']=1;
+                                    ans['content']='Unsubscribed!';
+                                    return res.send(JSON.stringify(ans))
+                                    }
+                                else{
+                                    ans['stat']=0;
+                                    ans['content']='Error!';
+                                    console.log(err);
+                                    return res.send(JSON.stringify(ans))
+                                }
+                            })
+                        }
+                        else{
+                            ans['stat']=0;
+                            ans['content']="Error!!";
+                            console.log("Stop here!!!")
+                            res.send(JSON.stringify(ans))
+                        }
+                    }else{
+                        console.log("buby");
+                        res.send(JSON.stringify({stat:"",content:""}));
+                        console.log("Error!!!");
+                    }
+                })
+            }
+        })
+    }
+    else{
+        console.log('getting undefined data');
+        return res.send('undefined data')
+    }
+})
+
 
 app.listen(4000,()=>{
     console.log("your server has been started..   ");

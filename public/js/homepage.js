@@ -78,13 +78,30 @@ setInterval(async function(){
 
         for(let i=0; i < data.length; i++){
             if(data[i]['username'] == username){
+
+                let row = document.createElement("div");
+                row.setAttribute("class", "row");
+
                 var roomId = data[i]['roomId'];
                 let room = document.createElement("button");
-                room.setAttribute("class", "available-room-button");
+                room.setAttribute("class", "public-room-button");
                 room.setAttribute("id", roomId);
                 room.setAttribute("onclick", "joinRoom(this)");
                 room.innerHTML = 'Room: ' + roomId;
-                starredRoomsList.appendChild(room);
+
+                let roomDelete = document.createElement("i");
+                roomDelete.setAttribute("class", "fa fa-trash room-trash");
+                roomDelete.setAttribute("id", roomId);
+                roomDelete.setAttribute("style", "font-size:2rem;");
+                roomDelete.setAttribute("aria-hidden", "false");
+                roomDelete.setAttribute("onclick", "unsubscribe(this)");
+                roomDelete.innerHTML="";
+
+
+                row.appendChild(room);
+                row.appendChild(roomDelete);
+
+                starredRoomsList.appendChild(row);
             }
         }
         
@@ -133,4 +150,34 @@ async function subscribe(el){
         }
         console.log(data);
     });
+}
+
+async function unsubscribe(el){
+    
+        const urlParams = new URLSearchParams(window.location.search);
+        let username = urlParams.get('username');
+        let roomId = el.id;
+
+        const response = await fetch("/subscribed_rooms/", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                    username: username,
+                    roomId: roomId
+                    }),
+        });
+        // response.json().then(data => {
+        response.json().then(data => {
+            console.log(typeof data);
+            if(data['stat']==1){
+                alert(data['content']);
+            }else{
+                alert(data['content']);
+            }
+            console.log(data);
+        });
+
 }
