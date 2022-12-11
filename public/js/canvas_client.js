@@ -27,6 +27,10 @@ canvas.width = WIDTH;
 let canvasContext = canvas.getContext("2d");
 
 canvasContext.strokeStyle = currentColor;
+let homeButton = document.getElementById('back_home');
+homeButton.addEventListener('click',()=>{
+    window.location.href = "mainPage.html"+"?userName="+username;
+})
 let colorButtons = document.getElementsByClassName('color_button');
 Array.from(colorButtons).forEach((colorButton) => {
     colorButton.addEventListener('click', () => {
