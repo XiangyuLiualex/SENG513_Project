@@ -28,7 +28,13 @@ async function sendRequest(){
                 alert("Changed Username fail!");
             }else if(data['stat']==69){
                 alert("You have entered wrong username or password!");
-            } 
+            }else if (data['stat']==2){
+                alert("Changed Username for your owned rooms successfully!");
+            }else if (data['stat']==3){
+                alert("Changed Username for your owned rooms failed!");
+            }else if (data['stat']==5){
+                alert("Sorry UserName Already Taken!");
+            }  
             console.log(data);
         });
 
