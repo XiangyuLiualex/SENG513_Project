@@ -15,11 +15,12 @@ async function sendRequest(){
                 roomId: roomIdIn,
                 }),
         });
-        // response.json().then(data => {
+       
         response.json().then(data => {
             console.log(typeof data);
             if(data['stat']==1){
                 alert("Join Room Successfully!!!");
+                // now implement the redirect to the room
         
             }else if(data['stat']==69){
                 alert("Room ID Invalid or Room is not open!");
