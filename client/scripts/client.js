@@ -1,9 +1,26 @@
+<<<<<<< Updated upstream:client/scripts/client.js
+=======
+/*
+//---get room id from url----
+let urlString = window.location.search;
+let urlParams = new URLSearchParams(urlString);
+let roomID = urlParams.get("roomId");
+let username = urlParams.get("userName");
+
+//--send room id to next page
+window.location.href = "NEXT_PAGE.html"+"?roomId="+roomId+"$userName="+username;
+*/
+
+//to do list 
+//back to home button
+
+
+>>>>>>> Stashed changes:client/scripts/canvas_client.js
 const socket = io('http://localhost:3000');
 socket.on('draw', drawLine)
-let HEIGHT, WIDTH, STROKE;
+let HEIGHT, WIDTH;
 HEIGHT = 1000;
 WIDTH = 1000;
-STROKE = 5;
 let drawing = false;
 let currentColor = 'red';
 let canvas = document.getElementsByTagName("canvas")[0];
