@@ -30,6 +30,7 @@ setInterval(async function(){
                 let room = document.createElement("button");
                 room.setAttribute("class", "public-room-button");
                 room.setAttribute("id", roomId);
+                room.setAttribute("onclick", "joinRoom(this)");
 
                 let roomStar = document.createElement("i");
                 roomStar.setAttribute("class", "fa fa-star room-star");
@@ -51,6 +52,7 @@ setInterval(async function(){
                 let room = document.createElement("button");
                 room.setAttribute("class", "available-room-button");
                 room.setAttribute("id", roomId);
+                room.setAttribute("onclick", "joinRoom(this)");
                 room.innerHTML = 'Room: ' + roomId;
                 subscribedRoomsList.appendChild(room);
             }
@@ -80,6 +82,7 @@ setInterval(async function(){
                 let room = document.createElement("button");
                 room.setAttribute("class", "available-room-button");
                 room.setAttribute("id", roomId);
+                room.setAttribute("onclick", "joinRoom(this)");
                 room.innerHTML = 'Room: ' + roomId;
                 starredRoomsList.appendChild(room);
             }
@@ -92,6 +95,13 @@ setInterval(async function(){
     // });
 }, 5000);
 
+
+function joinRoom(el){
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+    const roomId = el.id;
+    window.location.href = "clientCanvas.html"+"?roomID="+roomId+"&userName="+username;
+}
 
 async function subscribe(el){
 
