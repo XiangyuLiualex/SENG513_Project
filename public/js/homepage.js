@@ -11,11 +11,14 @@ setInterval(async function(){
     response.json().then(data => {
         let publicRoomsList = document.getElementById("public-rooms");
         let subscribedRoomsList = document.getElementById("subscribed-rooms");
+        let starredRoomsList = document.getElementById("starred-rooms");
 
             
         publicRoomsList.innerHTML = "";
-
         subscribedRoomsList.innerHTML = "";
+        starredRoomsList.innerHTML = "";
+
+
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
         for(let i=0; i < data.length; i++){
@@ -55,14 +58,35 @@ setInterval(async function(){
         
     });
 
-    // const subscribedResponse = await fetch("/show_rooms/", {
-    //     method: 'GET',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    // });
-    // response.json().then(data => {
+
+    const subResponse = await fetch("/subscribed_rooms/", {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    });
+    subResponse.json().then(data => {
+
+        let starredRoomsList = document.getElementById("starred-rooms");
+        starredRoomsList.innerHTML = "";
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+
+        for(let i=0; i < data.length; i++){
+            if(data[i]['username'] == username){
+                var roomId = data[i]['roomId'];
+                let room = document.createElement("button");
+                room.setAttribute("class", "available-room-button");
+                room.setAttribute("id", roomId);
+                room.innerHTML = 'Room: ' + roomId;
+                starredRoomsList.appendChild(room);
+            }
+        }
+        
+    });
+    
         
         
     // });
@@ -70,22 +94,24 @@ setInterval(async function(){
 
 
 async function subscribe(el){
-    
-    let roomID = el.id;
-    let usernameIn = document.getElementById("username").value;
-    let passwordIn = document.getElementById("password").value;
-    console.log("User name: "+usernameIn+"\nPassword: "+passwordIn);
 
-    const response = await fetch("/signup/", {
-    method: 'POST',
-    headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-            username: usernameIn,
-            password: passwordIn
-            }),
+    const urlParams = new URLSearchParams(window.location.search);
+    let username = urlParams.get('username');
+    let roomId = el.id;
+
+
+    console.log("User name: " + username + "\nRoom ID: " + roomId);
+
+    const response = await fetch("/subscribed_rooms/", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+                username: username,
+                roomId: roomId
+                }),
     });
     // response.json().then(data => {
     response.json().then(data => {
@@ -97,5 +123,4 @@ async function subscribe(el){
         }
         console.log(data);
     });
-
 }
