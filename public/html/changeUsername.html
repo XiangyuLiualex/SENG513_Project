@@ -23,14 +23,14 @@
           </h2>
 
         <div class="inputDiv">
-    <form action="/changepassword" method="post">
+
         <input type="text" placeholder="Username"
             name="username"  class="inputLabel" id = "username">
         </div>
 
         <div class="inputDiv">
         <input type="password" 
-            placeholder="Old Password" 
+            placeholder="Current Password" 
             name="oldpassword"  class="inputLabel" id = "password">
         </div>
         <div class="inputDiv">
@@ -44,7 +44,12 @@
               Change Username
          </button>
         </div>
-    </form>
+        <div class="buttonWrapper" class="inputDiv">
+            <button type="submit" id="submitButton" class="submitButton pure-button pure-button-primary"  onclick="location.href='../index.html'">
+                  Go Back
+             </button>
+            </div>
+  
     </div>
 </div>
 </body>

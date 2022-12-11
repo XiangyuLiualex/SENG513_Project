@@ -225,6 +225,49 @@ app.post("/changeUsername",(req,res)=>{
 })
 
 
+app.post("/deleteAccount",(req,res)=>{
+    var password=req.body.password
+    var username=req.body.username
+    let ans={stat:"",content:""}
+    //print bubby
+    console.log("deletingAccount in USERDB_API.js")
+    console.log("Deleting account with info USERNAME: "+username+"\npassword: "+password)
+    var db= new sqlite3.Database("./public/db/userAccount.db",(err,data)=>{
+       if(!err){
+            db.all('SELECT username,password FROM userInfo where username="'+username+'" and password="'+password+'"',(err,data)=>{
+                console.log(data)
+               if(data.length==1){
+                let sql;
+                sql = 'DELETE FROM userInfo WHERE username = ?';
+                db.run(sql, [username], (err,data) => {
+                    console.log("Delete Account sucessfully")
+                    if(!err){
+                        ans['stat']=1;
+                        ans['content']='You have Deleted your account successfully!';
+                       // console.error(err.message);
+                        return res.send(JSON.stringify(ans))
+                    }else{
+                        ans['stat']=0;
+                        ans['content']='You have entered the right pasword and username, but deleting failed!';
+                        return res.send(JSON.stringify(ans))
+                    }
+                  
+               });
+                    
+               }
+               else{
+                    ans['stat']=69;
+                    ans['content']='You have entered wrong username or password lmao!';
+                   return res.send(JSON.stringify(ans))
+               }
+           })
+       }
+    })
+})
+
+
+
+
 
 app.get("/show_data",(req,res)=>{
     var db=new sqlite3.Database("mydb.db",(err)=>{
