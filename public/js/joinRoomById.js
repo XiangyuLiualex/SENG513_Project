@@ -2,6 +2,7 @@ async function sendRequest(){
 
 
     let roomIdIn = document.getElementById("roomId").value;
+    let username = document.getElementById("username").value;
     console.log("sendRequest from joinRoomById.js")
     console.log("join Room with the room ID: "+ roomIdIn);
 
@@ -21,6 +22,8 @@ async function sendRequest(){
             if(data['stat']==1){
                 alert("Join Room Successfully!!!");
                 // now implement the redirect to the room
+                window.location.href = "clientCanvas.html"+"?roomID="+roomIdIn+"&userName="+username;
+
         
             }else if(data['stat']==69){
                 alert("Room ID Invalid or Room is not open!");

@@ -140,11 +140,10 @@ app.post("/changepassword",(req,res)=>{
   //  var correctInfo = false
     //print bubby
     console.log("change password in USERDB_API.js")
-    
-
     console.log("USERNAME: "+username+"\npassword: "+password+"\n newPassword: "+newpassword)
     var db= new sqlite3.Database("./public/db/database.db",(err,data)=>{
        if(!err){
+        // check if the username and password is correct
             db.all('SELECT username,password FROM userInfo where username="'+username+'" and password="'+password+'"',(err,data)=>{
                 console.log(data)
                if(data.length==1){
@@ -193,10 +192,11 @@ app.post("/changeUsername",(req,res)=>{
     console.log("USERNAME: "+username+"\npassword: "+password+"\n newPassword: "+newUsername)
     var db= new sqlite3.Database("./public/db/database.db",(err,data)=>{
        if(!err){
+        // check if the username and password is correct
             db.all('SELECT username,password FROM userInfo where username="'+username+'" and password="'+password+'"',(err,data)=>{
                 console.log(data)
                if(data.length==1){
-
+                // check if the new username is already taken
                 let exist=false;
                 db.all('select * from userInfo where username = "'+newUsername+'"', (err,data)=>{
                     if(!err){
@@ -276,6 +276,7 @@ app.post("/deleteAccount",(req,res)=>{
     console.log("Deleting account with info USERNAME: "+username+"\npassword: "+password)
     var db= new sqlite3.Database("./public/db/database.db",(err,data)=>{
        if(!err){
+        // check if the username and password is correct
             db.all('SELECT username,password FROM userInfo where username="'+username+'" and password="'+password+'"',(err,data)=>{
                 console.log(data)
                if(data.length==1){
@@ -306,6 +307,7 @@ app.post("/deleteAccount",(req,res)=>{
        }
     })
 })
+
 
 app.post("/joinRoomById",(req,res)=>{
     var roomId=req.body.roomId
