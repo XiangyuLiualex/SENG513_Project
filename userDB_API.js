@@ -124,6 +124,93 @@ app.post("/signin",(req,res)=>{
 //     })
 // }) 
 
+
+// app.get('/changepassword', function (req, res) {
+//     res.sendFile('changePassword.html', {
+//         root: __dirname
+//     });
+//  });
+
+
+app.post("/changepassword",(req,res)=>{
+    var password=req.body.password
+    var username=req.body.username
+    var newpassword=req.body.newpassword
+    let ans={stat:"",content:""}
+    
+    //print bubby
+    console.log("change password in USERDB_API.js")
+    
+
+    console.log("USERNAME: "+username+"\npassword: "+password+"\n newPassword: "+newpassword)
+    var db= new sqlite3.Database("./public/db/userAccount.db",(err,data)=>{
+       if(!err){
+            db.all('SELECT username,password FROM userInfo where username="'+username+'" and password="'+password+'"',(err,data)=>{
+                console.log(data)
+               if(!err){
+                let sql;
+                sql = 'UPDATE users SET password = ? WHERE username = ?';
+                db.run(sql, [newpassword, username], (err,data) => {
+                    console.log(data)
+                    if(!err){
+                        ans['stat']=1;
+                        ans['content']='You have changed your password successfully!';
+                        console.error(err.message);
+                        return res.send(JSON.stringify(ans))
+                    }else{
+                        ans['stat']=0;
+                        ans['content']='You have entered wrong username or password lmao !';
+                        return res.send(JSON.stringify(ans))
+                    }
+                  
+               });
+                    
+               }
+               else{
+                    ans['stat']=0;
+                    ans['content']='You have entered wrong username or password lmao!';
+                   return res.send(JSON.stringify(ans))
+               }
+           })
+       }
+    })
+})
+
+
+// update users password
+// let sql;
+// sql = 'UPDATE users SET password = ? WHERE username = ?';
+// var newpassword=req.body.newpassword
+// var username=req.body.username
+// db.run(sql, [newpassword, username], (err) => {
+//     console.log(data)
+//     if (err) {
+//         return console.error(err.message);
+//     }
+//     console.log(`Row(s) updated: ${this.changes}`);
+
+
+// });
+
+// app.post('/changepassword', function (req, res) {
+//     User.findByUsername(req.body.username, (err, user) => {
+//         if (err) {
+//             res.send(err);
+//         } else {
+//             user.changePassword(req.body.oldpassword, 
+//             req.body.newpassword, function (err) {
+//                 if (err) {
+//                     res.send(err);
+//                 } else {
+//                     res.send('successfully change password')
+//                     console.log('successfully change password')
+//                 }
+//             });
+//         }
+//     });
+//  });
+
+
 app.get("/show_data",(req,res)=>{
     var db=new sqlite3.Database("mydb.db",(err)=>{
         if(!err){
@@ -140,6 +227,10 @@ app.get("/show_data",(req,res)=>{
         }
     })
 })
+
+
+
+
 
 app.listen(4000,()=>{
     console.log("your server has been started..   ");
