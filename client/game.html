@@ -5,25 +5,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Draw Colab - Canvas</title>
+    <link rel="stylesheet" href="styles/canvas_client.css">
 </head>
 
 <body>
     <div id="container">
         <div id="tool_bar">
             <div id="size_picker">
-                <span>Stroke Size: </span>
-                <!--could use option list instead of input bar-->
-                <input type="number">
-                <span>&nbsp;px</span>
+                <label for="stroke_size">Stroke Size</label>
+                <select id="stroke_size">
+                    <option value="1">1 px</option>
+                    <option value="2">2 px</option>
+                    <option value="3">3 px</option>
+                    <option value="4" selected>4 px</option>
+                    <option value="5">5 px</option>
+                    <option value="6">6 px</option>
+                    <option value="7">7 px</option>
+                    <option value="8">8 px</option>
+                    <option value="9">9 px</option>
+                    <option value="10">10 px</option>
+                    <option value="11">11 px</option>
+                    <option value="12">12 px</option>
+                    <option value="13">13 px</option>
+                    <option value="14">14 px</option>
+                    <option value="15">15 px</option>
+                    <option value="16">16 px</option>
+                    <option value="17">17 px</option>
+                    <option value="18">18 px</option>
+                    <option value="19">19 px</option>
+                    <option value="20">20 px</option>
+                    <option value="21">21 px</option>
+                    <option value="22">22 px</option>
+                    <option value="23">23 px</option>
+                    <option value="24">24 px</option>
+                </select>
             </div>
             <div id="color_picker">
-                <!--need to choose one from the canvas palette or buttons-->
-                <canvas id="palette">
-
-                </canvas>
                 <div id="color_buttons">
-
+                    <button class="color_button" id="color_button_1"></button>
+                    <button class="color_button" id="color_button_2"></button>
+                    <button class="color_button" id="color_button_3"></button>
+                    <button class="color_button" id="color_button_4"></button>
+                    <button class="color_button" id="color_button_5"></button>
                 </div>
             </div>
         </div>
@@ -32,7 +56,7 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.0/socket.io.js"></script>
-    <script src="/scripts/client.js"></script>
+    <script src="/scripts/canvas_client.js"></script>
 </body>
 
 </html>

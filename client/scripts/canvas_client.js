@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream:client/scripts/client.js
-=======
 /*
 //---get room id from url----
 let urlString = window.location.search;
@@ -11,23 +9,39 @@ let username = urlParams.get("userName");
 window.location.href = "NEXT_PAGE.html"+"?roomId="+roomId+"$userName="+username;
 */
 
-//to do list 
-//back to home button
 
-
->>>>>>> Stashed changes:client/scripts/canvas_client.js
 const socket = io('http://localhost:3000');
 socket.on('draw', drawLine)
-let HEIGHT, WIDTH;
+let HEIGHT, WIDTH, STROKE;
 HEIGHT = 1000;
 WIDTH = 1000;
+STROKE = 5;
 let drawing = false;
-let currentColor = 'red';
+let updating = false;
+let currentColor = 'black';
 let canvas = document.getElementsByTagName("canvas")[0];
 canvas.height = HEIGHT;
 canvas.width = WIDTH;
 let canvasContext = canvas.getContext("2d");
-canvasContext.lineWidth = STROKE;
+
+canvasContext.strokeStyle = currentColor;
+let colorButtons = document.getElementsByClassName('color_button');
+Array.from(colorButtons).forEach((colorButton) => {
+    colorButton.addEventListener('click', () => {
+        currentColor = getComputedStyle(colorButton, null).getPropertyValue("background-color");
+        console.log(currentColor)
+        canvasContext.strokeStyle = currentColor;
+        Array.from(colorButtons).forEach((button) => {
+            button.style.border = 'grey none';
+        })
+        colorButton.style.border = 'grey solid';
+    })
+});
+let strokeInput = document.getElementById('stroke_size');
+canvasContext.lineWidth = strokeInput.value;
+strokeInput.addEventListener('input', () => {
+    canvasContext.lineWidth = strokeInput.value;
+})
 let myMove, myDown, myUp = "";
 let xOffset, yOffset;
 if ("ontouchstart" in document.documentElement) {
@@ -55,7 +69,9 @@ canvas.addEventListener(myMove, e => {
         console.log('move')
         let xInCanvas = e.clientX - canvas.getBoundingClientRect().left;
         let yInCanvas = e.clientY - canvas.getBoundingClientRect().top;
+        console.log(currentColor)
         update(xOffset, yOffset, xInCanvas, yInCanvas, currentColor);
+        toDB();
         xOffset = xInCanvas;
         yOffset = yInCanvas;
     }
@@ -63,6 +79,16 @@ canvas.addEventListener(myMove, e => {
 
 function update(xStart, yStart, xEnd, yEnd, color) {
     socket.emit('update', JSON.stringify({ xStart, yStart, xEnd, yEnd, color }));
+}
+function toDB() {
+    if (!updating) {
+        socket.emit('toDB', JSON.stringify(canvas.toDataURL()))
+        updating = true;
+        setTimeout(() => {
+            updating = false;
+            socket.emit('toDB', JSON.stringify(canvas.toDataURL()))
+        }, 1000)
+    }
 }
 function drawLine(data) {//draw a line in canvas
     console.log('draw')
@@ -72,17 +98,18 @@ function drawLine(data) {//draw a line in canvas
     canvasContext.lineTo(data.xEnd, data.yEnd);
     canvasContext.strokeStyle = data.color;
     canvasContext.stroke();
+    canvasContext.strokeStyle = currentColor;
 }
-socket.on('toDB', ()=>{
+/*socket.on('toDB', ()=>{
     socket.emit('toDB', JSON.stringify(canvas.toDataURL()))
-})
+})*/
 
 socket.on('history', (data) => {
     if (data) {
         data = JSON.parse(data)
         let img = new Image;
         img.onload = function () {
-            canvasContext.drawImage(img,0,0); // Or at whatever offset you like
+            canvasContext.drawImage(img, 0, 0); // Or at whatever offset you like
         };
         img.src = data;
     }
