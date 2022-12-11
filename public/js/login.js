@@ -1,5 +1,6 @@
 
 
+
 async function sendRequest(){
     let usernameIn = document.getElementById("username").value;
     let passwordIn = document.getElementById("password").value;
@@ -20,7 +21,8 @@ async function sendRequest(){
     response.json().then(data => {
         console.log(typeof data);
         if(data['stat']==1){
-            alert("login successfully!!!");
+            window.location.href = 'homepage.html'+'?username='+usernameIn;
+            alert("login successfully!!!")
         }else{
             alert("login fail! You have entered wrong username or password!");
         }

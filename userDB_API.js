@@ -90,7 +90,7 @@ app.post("/signin",(req,res)=>{
     let ans={stat:"",content:""}
 
     console.log("email: "+username+"\npassword: "+password)
-    var db= new sqlite3.Database("./public/db/userAccount.db",(err,data)=>{
+    var db= new sqlite3.Database("./public/db/database.db",(err,data)=>{
        if(!err){
            db.all('SELECT username,password FROM userInfo where username="'+username+'" and password="'+password+'"',(err,data)=>{
                 console.log(data)
@@ -128,6 +128,23 @@ app.get("/show_data",(req,res)=>{
     var db=new sqlite3.Database("mydb.db",(err)=>{
         if(!err){
             db.all('select * from users', (err,data)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log("Done");
+                    res.send(data);
+                }
+            });
+        }else{
+            console.log("some error in select data")
+        }
+    })
+})
+
+app.get("/show_rooms/",(req,res)=>{
+    var db=new sqlite3.Database("./public/db/database.db",(err)=>{
+        if(!err){
+            db.all('select * from rooms', (err,data)=>{
                 if(err){
                     console.log(err);
                 }else{

@@ -5,8 +5,8 @@
 	<title>index</title>
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/homepage.js"></script>
    
    
 </head>
@@ -60,13 +60,25 @@
         </div>
 
             <div class="room-selection">
-                <div>
-                
+                <div style="width:100%; height: 100%;">
+                    <div class="row" style="height: 100%;">
+                        <div class = "room-column" style="border-right: black 3px solid;">
+                            <h3 class="room-header">Subscribed Rooms</h3>
+                            <div class = "room-wrapper" id="subscribed-rooms">
+                            </div>    
+                        </div>
+                        <div class="room-column" style="justify-content: center; align-items: center;">
+                            <h3 class="room-header">Public Rooms </h3>
+                            <div class="room-wrapper" id="public-rooms">
+                            </div>    
+                        </div>
+                    </div>
                 </div>
             
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="../js/homepage.js"></script>
 </body>
 
 </html>
