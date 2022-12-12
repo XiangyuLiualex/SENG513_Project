@@ -1,10 +1,16 @@
 const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 
+//2 ways of join room
 document.getElementById("join-room").addEventListener('click',()=>{
     let roomID = document.getElementById("room-code").value;
     window.location.href = "clientCanvas.html"+"?roomID="+roomID+"&userName="+username;
 })
+function joinRoom(el){
+    const roomId = el.id;
+    window.location.href = "clientCanvas.html"+"?roomID="+roomId+"&userName="+username;
+}
+
 
 async function createPublicRoom(){
     console.log("creating room");
@@ -184,12 +190,6 @@ setInterval(async function(){
         
     // });
 }, 5000);
-
-
-function joinRoom(el){
-    const roomId = el.id;
-    window.location.href = "clientCanvas.html"+"?roomID="+roomId+"&userName="+username;
-}
 
 async function subscribe(el){
 
