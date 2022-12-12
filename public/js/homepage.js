@@ -2,13 +2,60 @@ const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 
 //2 ways of join room
-document.getElementById("join-room").addEventListener('click',()=>{
-    let roomID = document.getElementById("room-code").value;
-    window.location.href = "clientCanvas.html"+"?roomID="+roomID+"&userName="+username;
+document.getElementById("join-room").addEventListener('click',async ()=>{
+    let roomIdIn = document.getElementById("room-code").value;
+
+    const response = await fetch("/joinRoomById/", {
+        method: 'POST',
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+                roomId: roomIdIn,
+                }),
+        });
+       
+        response.json().then(data => {
+            console.log(typeof data);
+            if(data['stat']==1){
+                alert("Join Room Successfully!!!");
+                // now implement the redirect to the room
+                window.location.href = "clientCanvas.html"+"?roomID="+roomIdIn+"&userName="+username;
+        
+            }else if(data['stat']==69){
+                alert("Room ID Invalid or Room is not open!");
+            } 
+            console.log(data);
+        });
 })
-function joinRoom(el){
-    const roomId = el.id;
-    window.location.href = "clientCanvas.html"+"?roomID="+roomId+"&userName="+username;
+
+async function joinRoom(el){
+    let roomIdIn = el.id;
+    
+    const response = await fetch("/joinRoomById/", {
+        method: 'POST',
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+                roomId: roomIdIn,
+                }),
+        });
+       
+        response.json().then(data => {
+            console.log(typeof data);
+            if(data['stat']==1){
+                alert("Join Room Successfully!!!");
+                // now implement the redirect to the room
+                window.location.href = "clientCanvas.html"+"?roomID="+roomIdIn+"&userName="+username;
+        
+            }else if(data['stat']==69){
+                alert("Room ID Invalid or Room is not open!");
+            } 
+            console.log(data);
+        });
 }
 
 

@@ -600,7 +600,6 @@ app.post("/createRoom", (req, res) => {
     });
 })
 
-//--------------------------------------------------------------------testing without actual db---------------------------------
 let db = new sqlite3.Database('./public/db/database.db');
 io.on('connection', async (socket) => {
     socket.on('join', async (data) => {
