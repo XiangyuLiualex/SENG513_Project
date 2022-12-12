@@ -1,3 +1,18 @@
+
+let urlString = window.location.search;
+let urlParams = new URLSearchParams(urlString);
+let username = urlParams.get("userName");
+document.getElementById('username').innerText = "Current Username: " + username;
+document.getElementById('go_back_delete').addEventListener('click',()=>{
+    console.log("go back from delete button")
+    window.location.href='management.html' + '?userName=' + username;
+})
+
+
+
+
+
+
 async function sendRequest(){
 
 
@@ -22,6 +37,7 @@ async function sendRequest(){
             console.log(typeof data);
             if(data['stat']==1){
                 alert("Deleting Account Successfully!!!");
+                window.location.href='../index.html';
                 // go to index.html
                 //  window.location.href = "index.html";
             }else if (data['stat']==0){
@@ -39,6 +55,8 @@ async function sendRequest(){
 
 
 }
+
+
 
 
 
