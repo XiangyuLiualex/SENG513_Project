@@ -28,11 +28,13 @@ canvas.width = WIDTH;
 let canvasContext = canvas.getContext("2d");
 
 canvasContext.strokeStyle = currentColor;
-let subscribeStar = document.getElementById("subscribe").addEventListener('click',subscribe())
+let subscribeStar = document.getElementById("subscribe_star").addEventListener('click',subscribe)
 let homeButton = document.getElementById('back_home');
 homeButton.addEventListener('click', () => {
     window.location.href = "homepage.html" + "?userName=" + username;
 })
+let eraser = document.getElementsByClassName('eraser')[0];
+
 let colorButtons = document.getElementsByClassName('color_button');
 let initialClorButton = document.getElementById('color_button_1');
 initialClorButton.style.border = 'grey 4px solid';
@@ -43,9 +45,18 @@ Array.from(colorButtons).forEach((colorButton) => {
         Array.from(colorButtons).forEach((button) => {
             button.style.border = 'grey 4px none';
         })
+        eraser.style.border= 'grey 4px none';
         colorButton.style.border = 'grey 4px solid';
     })
-});
+})
+eraser.addEventListener('click',()=>{
+    currentColor = getComputedStyle(eraser, null).getPropertyValue("background-color");
+    canvasContext.strokeStyle = currentColor;
+    Array.from(colorButtons).forEach((button) => {
+        button.style.border = 'grey 4px none';
+    })
+    eraser.style.border= 'grey 4px solid';
+})
 let strokeInput = document.getElementById('stroke_size');
 currentStroke = strokeInput;
 canvasContext.lineWidth = strokeInput.value;

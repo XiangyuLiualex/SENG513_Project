@@ -7,13 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Draw Colab - Canvas</title>
     <link rel="stylesheet" href="../css/canvas_client.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
     <div id="container">
         <div id="tool_bar">
-            <img id="subscribe" src="" alt="I'm a subscribe star">
-            <button id="back_home"><img src="" alt="This is a home button"></button>
+            <div id="home_buttons">
+                <i class="fa fa-home btn-home" id="back_home" style="font-size:3.5rem;"></i>
+            <i class="fa fa-star room-star" id="subscribe_star" style="font-size:2rem;"></i>
+            </div>
             <div id="size_picker">
                 <label for="stroke_size">Stroke Size</label>
                 <select id="stroke_size">
@@ -43,7 +46,10 @@
                     <option value="24">24 px</option>
                 </select>
             </div>
-            <div id="color_picker">
+            <div id="eraser_container">
+                <button class="eraser"><span>Eraser</span></button>
+            </div>
+            <div id="color_picker"></div>
                 <div id="color_buttons">
                     <button class="color_button" id="color_button_1"></button>
                     <button class="color_button" id="color_button_2"></button>
