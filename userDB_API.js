@@ -21,7 +21,7 @@ io = socketIO(server);//build a scoket io server based on express http server
 
 
 app.get("/create_data",(req,res)=>{
-    var db = new sqlite3.Database('./public/mydb.db',(err,data)=>{
+    var db = new sqlite3.Database('./public/database.db',(err,data)=>{
         if(!err){
             db.run('CREATE TABLE IF NOT EXISTS users(id  integer primary key autoincrement,email text, password text)',(err)=>{
                 if(!err){

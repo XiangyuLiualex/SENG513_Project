@@ -4,7 +4,7 @@ let urlString = window.location.search;
 let urlParams = new URLSearchParams(urlString);
 let roomID = urlParams.get("roomID");
 console.log(roomID)
-let username = urlParams.get("userName");
+let username = urlParams.get("username");
 
 /*
 //--send room id to next page
@@ -30,7 +30,7 @@ let canvasContext = canvas.getContext("2d");
 canvasContext.strokeStyle = currentColor;
 let homeButton = document.getElementById('back_home');
 homeButton.addEventListener('click',()=>{
-    window.location.href = "mainPage.html"+"?userName="+username;
+    window.location.href = "homepage.html"+"?userName="+username;
 })
 let colorButtons = document.getElementsByClassName('color_button');
 let initialClorButton = document.getElementById('color_button_1');
