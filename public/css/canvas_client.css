@@ -3,6 +3,11 @@ body {
   text-align: center;
 }
 
+#home_buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 #tool_bar {
   background-color: antiquewhite;
   display: flex;
@@ -97,4 +102,23 @@ input {
 
 #color_button_12 {
   background-color: greenyellow;
-}/*# sourceMappingURL=canvas_client.css.map */
+}
+
+.eraser{
+  border: grey 4px none;
+  background-color: white;
+  width: fit-content;
+  height: fit-content;
+}
+
+#subscribe_star{
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+}
+
+
+#subscribe_star:hover{
+  color:gold;
+}
