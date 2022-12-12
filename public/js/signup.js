@@ -21,6 +21,7 @@ async function sendRequest(){
         console.log(typeof data);
         if(data['stat']==1){
             alert(data['content']);
+            window.location.href = 'homepage.html'+'?userName='+usernameIn;
         }else{
             alert(data['content']);
         }
