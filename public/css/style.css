@@ -47,6 +47,7 @@ body {
     margin: 4px 2px;
     cursor: pointer;
 }
+
 .inputbox {
     border: none;
     padding: 15px 32px;
@@ -75,6 +76,14 @@ body {
     vertical-align:middle;
     border-radius: 10%;
 
+}
+
+#p {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #pic{
