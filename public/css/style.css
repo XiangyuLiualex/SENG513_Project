@@ -36,9 +36,10 @@ body {
 }
 
 .butt {
-    background-color: crimson;
-    border: 1px solid black;
-    color: white;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 2rem;
+    color: black;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -46,6 +47,11 @@ body {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+.butt:hover{
+    color: white;
+    background-color: crimson;
 }
 
 .inputbox {
@@ -69,13 +75,58 @@ body {
     display: flex;
     justify-content: center;
     background-color:white;
-    width: 50%;
+    width: 45%;
     justify-content: center;
-    height: 60%;
+    height: 45%;
     align-items: center;
     vertical-align:middle;
-    border-radius: 10%;
+    border-radius: 2rem;
 
+}
+
+.custom-letters{
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-size: 0px;
+    align-self: stretch;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}
+
+.color_red{
+    color: FF0000;
+    font-size: 5rem;
+    
+}
+.color_orange{
+    color: FF7A00;
+    font-size: 5rem;
+}
+.color_yellow{
+    color: FAFF00;
+    font-size: 5rem;
+}
+.color_green{
+    color: 42FF00;
+    font-size: 5rem;
+}
+.color_cyan{
+    color: 00F0FF;
+    font-size: 5rem;
+}
+.color_blue{
+    color: 0047FF;
+    font-size: 5rem;
+}
+.color_purple{
+    color: 7000FF;
+    font-size: 5rem;
+}
+.color_pink{
+    color: FF0099;
+    font-size: 5rem;
 }
 
 #p {
