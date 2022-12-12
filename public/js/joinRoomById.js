@@ -1,6 +1,4 @@
 async function sendRequest(){
-
-
     let roomIdIn = document.getElementById("roomId").value;
     let username = document.getElementById("username").value;
     console.log("sendRequest from joinRoomById.js")
@@ -30,10 +28,5 @@ async function sendRequest(){
             } 
             console.log(data);
         });
-
-
-
-
-
 }
 
