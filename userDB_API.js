@@ -20,20 +20,20 @@ server.listen(4000);//server listening to local host port 4000
 io = socketIO(server);//build a scoket io server based on express http server
 
 
-// app.get("/create_data",(req,res)=>{
-//     var db = new sqlite3.Database('./public/userAccount.db',(err,data)=>{
-//         if(!err){
-//             db.run('CREATE TABLE IF NOT EXISTS users(id  integer primary key autoincrement,email text, password text)',(err)=>{
-//                 if(!err){
-//                         console.log('table is created sucessfully!')
-//                 }
-//                 else{
-//                     console.log(err.message)
-//                 }
-//             })
-//         }
-//     })
-// })
+app.get("/create_data",(req,res)=>{
+    var db = new sqlite3.Database('./public/mydb.db',(err,data)=>{
+        if(!err){
+            db.run('CREATE TABLE IF NOT EXISTS users(id  integer primary key autoincrement,email text, password text)',(err)=>{
+                if(!err){
+                        console.log('table is created sucessfully!')
+                }
+                else{
+                    console.log(err.message)
+                }
+            })
+        }
+    })
+})
 
 
 app.post('/signup', (req, res) => {
@@ -131,23 +131,164 @@ app.post("/signin", (req, res) => {
 //     })
 // }) 
 
-// app.get("/show_data",(req,res)=>{
-//     var db=new sqlite3.Database("mydb.db",(err)=>{
-//         if(!err){
-//             db.all('select * from users', (err,data)=>{
-//                 if(err){
-//                     console.log(err);
-//                 }else{
-//                     console.log("Done");
-//                     res.send(data);
-//                 }
-//             });
-//         }else{
-//             console.log("some error in select data")
-//         }
-//     })
-// })
+app.get("/show_data",(req,res)=>{
+    var db=new sqlite3.Database("mydb.db",(err)=>{
+        if(!err){
+            db.all('select * from users', (err,data)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log("Done");
+                    res.send(data);
+                }
+            });
+        }else{
+            console.log("some error in select data")
+        }
+    })
+})
+app.get("/show_rooms/",(req,res)=>{
+    var db=new sqlite3.Database("./public/db/database.db",(err)=>{
+        if(!err){
+            db.all('select * from rooms', (err,data)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log("Done");
+                    res.send(data);
+                }
+            });
+        }else{
+            console.log("some error in select data")
+        }
+    })
+})
 
+app.get("/subscribed_rooms/",(req,res)=>{
+    var db=new sqlite3.Database("./public/db/database.db",(err)=>{
+        if(!err){
+            db.all('select * from subscribedRooms', (err,data)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log("Done");
+                    res.send(data);
+                }
+            });
+        }else{
+            console.log("some error in select data")
+        }
+    })
+})
+
+
+app.post('/subscribed_rooms/',(req,res)=>{
+    console.log(req.body);
+    var user = req.body;
+    let ans={stat:"",content:""}
+    if(user!=undefined){
+        console.log(user)
+        var db = new sqlite3.Database('./public/db/database.db',(err,data)=>{
+            if(!err){
+                let exist=false;
+                db.all('select * from subscribedRooms where username = "'+user.username+'" and roomId = "'+user.roomId+'"', (err,data)=>{
+                    if(!err){
+                        console.log("length: "+data.length);
+                        if(data.length>0){
+                            exist=true;
+                            console.log("stop!")
+                        }
+                        console.log(exist)
+                        if(exist){
+                            ans['stat']=0;
+                            ans['content']="Already subscribed!";
+                            console.log("Stop here!!!")
+                            res.send(JSON.stringify(ans))
+                        }else{
+                            db.run('INSERT INTO subscribedRooms(username,roomId) values("'+user.username+'","'+user.roomId+'")',(err)=>{
+                                if(!err){
+                                    ans['stat']=1;
+                                    ans['content']='Subscribed!';
+                                    return res.send(JSON.stringify(ans))
+                                    }
+                                else{
+                                    ans['stat']=0;
+                                    ans['content']='Error!';
+                                    console.log(err);
+                                    return res.send(JSON.stringify(ans))
+                                }
+                            })
+                        }
+                    }else{
+                        console.log("buby");
+                        res.send(JSON.stringify({stat:"",content:""}));
+                        console.log("check you id");
+                    }
+                })
+
+                
+            }
+        })
+    }
+    else{
+        console.log('getting undefined data');
+        return res.send('undefined data')
+    }
+})
+
+app.delete('/subscribed_rooms/',(req,res)=>{
+    console.log(req.body);
+    var user = req.body;
+    let ans={stat:"",content:""}
+    if(user!=undefined){
+        console.log(user)
+        var db = new sqlite3.Database('./public/db/database.db',(err,data)=>{
+            if(!err){
+                let exist=false;
+                db.all('select * from subscribedRooms where username = "'+user.username+'" and roomId = "'+user.roomId+'"', (err,data)=>{
+                    if(!err){
+                        console.log("length: "+data.length);
+                        if(data.length>0){
+                            exist=true;
+                            console.log("stop!")
+                        }
+                        console.log(exist)
+                        if(exist){
+
+                            db.run('delete from subscribedRooms where username = "'+user.username+'" and roomId = "'+user.roomId+'"',(err)=>{
+                                if(!err){
+                                    ans['stat']=1;
+                                    ans['content']='Unsubscribed!';
+                                    return res.send(JSON.stringify(ans))
+                                    }
+                                else{
+                                    ans['stat']=0;
+                                    ans['content']='Error!';
+                                    console.log(err);
+                                    return res.send(JSON.stringify(ans))
+                                }
+                            })
+                        }
+                        else{
+                            ans['stat']=0;
+                            ans['content']="Error!!";
+                            console.log("Stop here!!!")
+                            res.send(JSON.stringify(ans))
+                        }
+                    }else{
+                        console.log("buby");
+                        res.send(JSON.stringify({stat:"",content:""}));
+                        console.log("Error!!!");
+                    }
+                })
+            }
+        })
+    }
+    else{
+        console.log('getting undefined data');
+        return res.send('undefined data')
+    }
+})
 // createRoomTable
 app.post("/createRoom", (req, res) => {
     var room = req.body;
@@ -183,7 +324,6 @@ app.post("/createRoom", (req, res) => {
 })
 
 //--------------------------------------------------------------------testing without actual db---------------------------------
-let historyForDB = {};
 let db = new sqlite3.Database('./public/db/database.db');
 io.on('connection', async (socket) => {
     socket.on('join', async (data) => {
