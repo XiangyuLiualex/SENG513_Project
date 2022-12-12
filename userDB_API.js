@@ -131,6 +131,283 @@ app.post("/signin", (req, res) => {
 //     })
 // }) 
 
+
+// app.get('/changepassword', function (req, res) {
+//     res.sendFile('changePassword.html', {
+//         root: __dirname
+//     });
+//  });
+
+
+app.post("/changepassword",(req,res)=>{
+    var password=req.body.password
+    var username=req.body.username
+    var newpassword=req.body.newpassword
+    let ans={stat:"",content:""}
+  //  var correctInfo = false
+    //print bubby
+    console.log("change password in USERDB_API.js")
+    
+
+    console.log("USERNAME: "+username+"\npassword: "+password+"\n newPassword: "+newpassword)
+    var db= new sqlite3.Database("./public/db/database.db",(err,data)=>{
+       if(!err){
+        // check if the username and password is correct
+            db.all('SELECT username,password FROM userInfo where username="'+username+'" and password="'+password+'"',(err,data)=>{
+                console.log(data)
+               if(data.length==1){
+                let sql;
+                sql = 'UPDATE userInfo SET password = ? WHERE username = ?';
+                db.run(sql, [newpassword, username], (err) => {
+                    console.log("Reset password sucessfully")
+                    if(!err){
+                       // correctInfo = true;
+                        ans['stat']=1;
+                        ans['content']='You have changed your password successfully!';
+                       // console.error(err.message);
+                        return res.send(JSON.stringify(ans))
+                    }else {
+                        ans['stat']=0;
+                        ans['content']='You have entered the right pasword and username, but changing failed!';
+                        return res.send(JSON.stringify(ans))
+                    }
+                  
+               });
+                    
+               }
+               else {
+                    ans['stat']=69;
+                    ans['content']='You have entered wrong username or password lmao!';
+                   return res.send(JSON.stringify(ans))
+               }
+           })
+       }
+    })
+})
+
+
+
+
+app.post("/changeUsername",(req,res)=>{
+    var password=req.body.password
+    var username=req.body.username
+    var newUsername=req.body.newUsername
+    let ans={stat:"",content:""}
+    
+    //print bubby
+    console.log("change UserName in USERDB_API.js")
+    
+
+    console.log("USERNAME: "+username+"\npassword: "+password+"\n newPassword: "+newUsername)
+    var db= new sqlite3.Database("./public/db/database.db",(err,data)=>{
+       if(!err){
+        // check if the username and password is correct
+            db.all('SELECT username,password FROM userInfo where username="'+username+'" and password="'+password+'"',(err,data)=>{
+                console.log(data)
+               if(data.length==1){
+                // check if the new username is already taken
+                let exist=false;
+                db.all('select * from userInfo where username = "'+newUsername+'"', (err,data)=>{
+                    if(!err){
+                        console.log("length: "+data.length);
+                        if(data.length>0){
+                            exist=true;
+                            console.log("New username found in the database!")
+                        }
+                        console.log(exist)
+                    if(exist){
+                        ans['stat']=5;
+                        ans['content']="Username already";
+                        console.log("UserName Already Taken!!!")
+                        res.send(JSON.stringify(ans))
+                    }else{
+                        // change the username in the userInfo table
+                        let sql;
+                        sql = 'UPDATE userInfo SET username = ? WHERE username = ?';
+                        db.run(sql, [newUsername, username], (err,data) => {
+                            if(!err){
+                                console.log("Reset Username sucessfully")
+                                ans['stat']=1;
+                                ans['content']='You have changed your username successfully!';
+                               // console.error(err.message);
+                                return res.send(JSON.stringify(ans))
+                            }else{
+                                ans['stat']=0;
+                                ans['content']='You have entered the right pasword and username, but changing failed!';
+                                return res.send(JSON.stringify(ans))
+                            }
+                          
+                       });
+                       // change the username in the rooms table
+                       let sql1;
+                       sql1 = 'UPDATE rooms SET owner = ? WHERE owner = ?';
+                       db.run(sql1, [newUsername, username], (err,data) => {
+                        if(!err){
+                            console.log("Reset Room Username ownership sucessfully")
+                            ans['stat']=2;
+                            ans['content']='You have changed your username for rooms ownership successfully!';
+                           // console.error(err.message);
+                           // return res.send(JSON.stringify(ans))
+                        }else{
+                            console.log("Reset Room Username ownership Failed")
+                         //   return res.send(JSON.stringify(ans))
+                        }
+        
+                       });  
+                        // change the username in the subscribedRooms table
+                       let sql2;
+                       sql2 = 'UPDATE subscribedRooms SET username = ? WHERE username = ?';
+                       db.run(sql2, [newUsername, username], (err,data) => {
+                        if(!err){
+                            console.log("Changed Room Username in subscribedRooms table sucessfully")
+                            ans['stat']=2;
+                            ans['content']='You have changed your username for rooms ownership successfully!';
+                           // console.error(err.message);
+                           // return res.send(JSON.stringify(ans))
+                        }else{
+                            console.log("Changed Room Username in subscribedRooms table failed")
+                         //   return res.send(JSON.stringify(ans))
+                        }
+        
+                       });  
+                        
+                    }
+                    }else{
+                        ans['stat']=6;
+                        ans['content']='finding newusername failed!';
+                        console.log("checking newusername failed");
+                        return res.send(JSON.stringify(ans))
+                        
+                    }
+                })
+  
+               }
+               else{
+                    ans['stat']=69;
+                    ans['content']='You have entered wrong username or password lmao!';
+                   return res.send(JSON.stringify(ans))
+               }
+           })
+       }
+    })
+})
+
+
+app.post("/deleteAccount",(req,res)=>{
+    var password=req.body.password
+    var username=req.body.username
+    let ans={stat:"",content:""}
+    //print bubby
+    console.log("deletingAccount in USERDB_API.js")
+    console.log("Deleting account with info USERNAME: "+username+"\npassword: "+password)
+    var db= new sqlite3.Database("./public/db/database.db",(err,data)=>{
+       if(!err){
+        // check if the username and password is correct
+            db.all('SELECT username,password FROM userInfo where username="'+username+'" and password="'+password+'"',(err,data)=>{
+                console.log(data)
+               if(data.length==1){
+                // delete the account from the userInfo table
+                let sql;
+                sql = 'DELETE FROM userInfo WHERE username = ?';
+                db.run(sql, [username], (err,data) => {
+                    
+                    if(!err){
+                        console.log("Delete Account sucessfully")
+                        ans['stat']=1;
+                        ans['content']='You have Deleted your account successfully!';
+                       // console.error(err.message);
+                        return res.send(JSON.stringify(ans))
+                    }else{
+                        console.log("Delete Account failed")
+                        ans['stat']=0;
+                        ans['content']='You have entered the right pasword and username, but deleting failed!';
+                        return res.send(JSON.stringify(ans))
+                    }
+                
+               });
+               // delete the account from the rooms table
+               let sql1;
+                sql1 = 'DELETE FROM rooms WHERE owner = ?';
+                db.run(sql1, [username], (err,data) => {
+                    if(!err){
+                        console.log("Delete ROOMS with Account sucessfully")
+                        ans['stat']=1;
+                        ans['content']='You have Deleted your account successfully!';
+                       // console.error(err.message);
+                     //   return res.send(JSON.stringify(ans))
+                    }else{
+                        console.log("Delete ROOMS with Account sucessfully")
+                        ans['stat']=0;
+                        ans['content']='You have entered the right pasword and username, but deleting failed!';
+                       // return res.send(JSON.stringify(ans))
+                    }
+                  
+               });
+
+
+                // delete the account from the subscribedRooms table
+                let sql2;
+                sql2 = 'DELETE FROM subscribedRooms WHERE username = ?';
+                db.run(sql2, [username], (err,data) => {
+                    if(!err){
+                        console.log("Delete user from subscribedRooms table sucessfully")
+                        ans['stat']=2;
+                        ans['content']='You have changed your username for rooms ownership successfully!';
+                    // console.error(err.message);
+                    // return res.send(JSON.stringify(ans))
+                    }else{
+                        console.log("Delete user from subscribedRooms table failed")
+                    //   return res.send(JSON.stringify(ans))
+                    }
+    
+                }); 
+                    
+               }
+               else{
+                    ans['stat']=69;
+                    ans['content']='You have entered wrong username or password lmao!';
+                   return res.send(JSON.stringify(ans))
+               }
+           })
+       }
+    })
+})
+
+app.post("/joinRoomById",(req,res)=>{
+    var roomId=req.body.roomId
+    var status= 1
+    let ans={stat:"",content:""}
+    //print bubby
+    console.log("joinRoomById in USERDB_API.js")
+    console.log("Joining room with the room ID: "+roomId)
+    var db= new sqlite3.Database("./public/db/database.db",(err,data)=>{
+       if(!err){
+            db.all('SELECT roomID FROM rooms where roomID="'+roomId+'" and openStatus="'+status+'"',(err,data)=>{
+                console.log(data)
+               if(data.length==1){
+                console.log("Joining room sucessfully")
+                ans['stat']=1;
+                ans['content']='found room successfully!';
+                return res.send(JSON.stringify(ans))
+                    
+               }
+               else{
+                console.log("Joining room failed")
+                    ans['stat']=69;
+                    ans['content']='You have entered wrong roomID or the room is not open lmao!';
+                   return res.send(JSON.stringify(ans))
+               }
+           })
+       }
+    })
+})
+
+
+
+
+
+
+
 app.get("/show_data",(req,res)=>{
     var db=new sqlite3.Database("mydb.db",(err)=>{
         if(!err){
