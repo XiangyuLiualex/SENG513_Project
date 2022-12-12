@@ -1,4 +1,10 @@
 /* Homepage */
+body {
+    margin: 0;  
+	background-color:crimson;
+    /* padding: 20px; */
+    text-align: center;
+}
 
 .home-wrapper{
     height: 100%;
