@@ -8,31 +8,31 @@ let username = "Alex";
 
 let owned_Rooms;
 
-//Testing
-owned_Rooms = ["123", "234", "456", "567", "888", "999"];
+// //Testing
+// owned_Rooms = ["123", "234", "456", "567", "888", "999"];
 
 let u = document.getElementById("user_name");
 let r = document.getElementById("rooms");
 u.innerText = username;
 
-// async function sendRequest(){
-//     const response = await fetch("/management/", {
-//     method: 'GET',
-//     headers: {
-//     'Accept': 'application/json',
-//     'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//             username: username
-//             }),
-//     });
-//     // response.json().then(data => {
-//     response.json().then(data => {
-//         console.log(data);
-//         owned_Rooms = data;
-//         displayOwnedRooms();
-//     });
-// }
+async function sendRequest(){
+    const response = await fetch("/management/", {
+    method: 'POST',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+            username: username
+            }),
+    });
+    // response.json().then(data => {
+    response.json().then(data => {
+        console.log(data);
+        owned_Rooms = data;
+        displayOwnedRooms();
+    });
+}
 
 function displayOwnedRooms() {
     let l = document.createElement("ul");
@@ -61,5 +61,5 @@ function displayOwnedRooms() {
     r.appendChild(l);
 }
 
-// need to comment out
-displayOwnedRooms();
+// // need to comment out
+// displayOwnedRooms();

@@ -30,7 +30,7 @@ let roomInfo;
 
 // async function sendRequest(){
 //     const response = await fetch("/setting/", {
-//     method: 'GET',
+//     method: 'POST',
 //     headers: {
 //     'Accept': 'application/json',
 //     'Content-Type': 'application/json'
