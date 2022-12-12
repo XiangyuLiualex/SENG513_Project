@@ -188,36 +188,36 @@ body {
 }
 
 .color_red{
-    color: FF0000;
+    color: red;
     font-size: 5rem;
     
 }
 .color_orange{
-    color: FF7A00;
+    color: rgb(255,122,0);
     font-size: 5rem;
 }
 .color_yellow{
-    color: FAFF00;
+    color: rgb(250,255,0);
     font-size: 5rem;
 }
 .color_green{
-    color: 42FF00;
+    color: rgb(66,255,0);
     font-size: 5rem;
 }
 .color_cyan{
-    color: 00F0FF;
+    color: rgb(0, 240, 255);
     font-size: 5rem;
 }
 .color_blue{
-    color: 0047FF;
+    color: rgb(0, 71, 255);
     font-size: 5rem;
 }
 .color_purple{
-    color: 7000FF;
+    color: rgb(112, 0, 255);
     font-size: 5rem;
 }
 .color_pink{
-    color: FF0099;
+    color: rgb(255, 0, 153);
     font-size: 5rem;
 }
 
