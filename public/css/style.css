@@ -47,6 +47,7 @@ body {
     margin: 4px 2px;
     cursor: pointer;
 }
+
 .inputbox {
     border: none;
     padding: 15px 32px;
@@ -77,12 +78,16 @@ body {
 
 }
 
+#p {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #pic{
     width: 60%;
     height: 25%;
 
-}
-
-#manageMyRoom {
-    display: none;
 }
