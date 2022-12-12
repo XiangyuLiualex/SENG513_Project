@@ -10,15 +10,15 @@
 </head>
 <body>
 	<div class="back">
-        <div class="box">
+        <div class="box-su">
           <div>
-            <h1>User Sign up</h1>
+            <h1 class="sign-up-header">User Signup</h1>
             <br>
-            <h3>Please enter the Username: </h3>
-            <input type="text" class="inputbox" id="username" placeholder="Enter username">
+            <h3>Choose your username:</h3>
+            <input type="text" class="inputbox in-un" id="username" placeholder="username"onfocus="this.placeholder=''" onblur="this.placeholder='username'">
             <br>
-            <h3>Please enter Your Password: </h3>
-            <input type="text" class="inputbox" id="password" placeholder="Enter password">
+            <h3>Enter your password:</h3>
+            <input type="text" class="inputbox in-pw" id="password" placeholder="password" onfocus="this.placeholder=''" onblur="this.placeholder='password'">
             <br>
             <br>
             <button class="butt" onclick="sendRequest()">Submit</button>
