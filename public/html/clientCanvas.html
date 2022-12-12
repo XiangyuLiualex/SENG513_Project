@@ -15,7 +15,8 @@
         <div id="tool_bar">
             <div id="home_buttons">
                 <i class="fa fa-home btn-home" id="back_home" style="font-size:3.5rem;"></i>
-            <i class="fa fa-star room-star" id="subscribe_star" style="font-size:2rem;"></i>
+                <span id="room_ID"></span>
+                <i class="fa fa-star room-star" id="subscribe_star" style="font-size:2rem;"></i>
             </div>
             <div id="size_picker">
                 <label for="stroke_size">Stroke Size</label>
@@ -50,25 +51,25 @@
                 <button class="eraser"><span>Eraser</span></button>
             </div>
             <div id="color_picker"></div>
-                <div id="color_buttons">
-                    <button class="color_button" id="color_button_1"></button>
-                    <button class="color_button" id="color_button_2"></button>
-                    <button class="color_button" id="color_button_3"></button>
-                    <button class="color_button" id="color_button_4"></button>
-                    <button class="color_button" id="color_button_5"></button>
-                    <button class="color_button" id="color_button_6"></button>
-                    <button class="color_button" id="color_button_7"></button>
-                    <button class="color_button" id="color_button_8"></button>
-                    <button class="color_button" id="color_button_9"></button>
-                    <button class="color_button" id="color_button_10"></button>
-                    <button class="color_button" id="color_button_11"></button>
-                    <button class="color_button" id="color_button_12"></button>
-                </div>
+            <div id="color_buttons">
+                <button class="color_button" id="color_button_1"></button>
+                <button class="color_button" id="color_button_2"></button>
+                <button class="color_button" id="color_button_3"></button>
+                <button class="color_button" id="color_button_4"></button>
+                <button class="color_button" id="color_button_5"></button>
+                <button class="color_button" id="color_button_6"></button>
+                <button class="color_button" id="color_button_7"></button>
+                <button class="color_button" id="color_button_8"></button>
+                <button class="color_button" id="color_button_9"></button>
+                <button class="color_button" id="color_button_10"></button>
+                <button class="color_button" id="color_button_11"></button>
+                <button class="color_button" id="color_button_12"></button>
             </div>
         </div>
-        <div id="canvas_container">
-            <canvas width="1000" height="1000"></canvas>
-        </div>
+    </div>
+    <div id="canvas_container">
+        <canvas width="1000" height="1000"></canvas>
+    </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.0/socket.io.js"></script>
     <script src="../js/canvas_client.js"></script>

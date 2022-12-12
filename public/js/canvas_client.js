@@ -25,6 +25,7 @@ let currentStroke;
 let canvas = document.getElementsByTagName("canvas")[0];
 canvas.height = HEIGHT;
 canvas.width = WIDTH;
+document.getElementById('room_ID').innerText = 'Room: '+roomID;
 let canvasContext = canvas.getContext("2d");
 
 canvasContext.strokeStyle = currentColor;
@@ -88,7 +89,7 @@ canvas.addEventListener(myMove, e => {
     if (drawing) {
         let xInCanvas = e.clientX - canvas.getBoundingClientRect().left;
         let yInCanvas = e.clientY - canvas.getBoundingClientRect().top;
-        update(xOffset, yOffset, xInCanvas, yInCanvas, currentColor, currentStroke);
+        update(xOffset, yOffset, xInCanvas, yInCanvas, currentColor, strokeInput.value);
         toDB();
         xOffset = xInCanvas;
         yOffset = yInCanvas;
