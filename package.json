@@ -20,6 +20,7 @@
   "homepage": "https://github.com/XiangyuLiualex/SENG513_Project#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "sqlite3": "^5.1.2"
+    "socket.io": "^4.5.4",
+    "sqlite3": "^5.1.4"
   }
 }
