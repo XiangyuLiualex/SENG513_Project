@@ -656,3 +656,103 @@ function getCanvasHistory(roomID) {
 
 
 }
+
+app.get("/management",(req,res) => {
+    let userName = req.body;
+    if(userName != undefined) {
+        console.log(userName.username);
+        let db = new sqlite3.Database('./public/db/userAccount.db',(err,data)=>{
+            if(!err){
+                //******* change */ owned_Rooms
+                db.all('select owned_Rooms from userInfo where username = "'+user.username+'"', (err,data)=>{
+                    if(!err){
+                        console.log("length: "+data.length);
+                        res.send(JSON.stringify(data));
+                    }
+                })
+                }
+            })
+    }
+})
+
+app.get("/setting",(req,res)=>{
+    let roomID = res.body;
+    var db=new sqlite3.Database("./public/db/userAccount.db",(err)=>{
+        if(!err){
+            db.all('select openStatus and publicStatus from rooms where roomID = "'+roomID.roomID+'"', (err,data)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log("Done");
+                    res.send(data);
+                }
+            });
+        }
+    })
+})
+
+app.post("/submitSetting",(req,res)=>{
+    let setting = res.body;
+    var db=new sqlite3.Database("./public/db/userAccount.db",(err)=>{
+        if(!err){
+            let oState, pState;
+            if(setting.openStat == 0) {
+                oState = 1;
+            }
+            else {
+                oState = 0;
+            }
+            if(setting.publicStat == 0) {
+                pState = 1;
+            }
+            else {
+                pState = 0;
+            }
+
+            db.run('UPDATE rooms SET openStatus = "'+oState+'", publicStatus = "'+pState+'" WHERE roomID = "'+setting.roomID+'"',(err)=>{
+                if(!err){
+                    let ans = 1;
+                    return res.send(ans)
+                    }
+                else{
+                    let ans = 0;
+                    console.log(err);
+                    return res.send(ans)
+                }
+            })
+        }
+    })
+})
+
+app.post("/deleteRoom",(req,res)=>{
+    let roomid = req.body;
+    var db=new sqlite3.Database("./public/db/userAccount.db",(err)=>{
+        if(!err){
+            let oState, pState;
+            if(setting.openStat == 0) {
+                oState = 1;
+            }
+            else {
+                oState = 0;
+            }
+            if(setting.publicStat == 0) {
+                pState = 1;
+            }
+            else {
+                pState = 0;
+            }
+
+            db.run('DELETE FROM rooms WHERE roomID = "'+roomid.roomID+'"',(err)=>{
+                if(!err){
+                    let ans = 1;
+                    return res.send(ans)
+                    }
+                else{
+                    let ans = 0;
+                    console.log(err);
+                    return res.send(ans)
+                }
+            })
+        }
+    })
+})
