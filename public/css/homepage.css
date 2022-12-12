@@ -242,7 +242,3 @@ body {
     cursor: pointer;
     color: black;
 }
-
-.room-button:hover{
-    background-color: rgb(251, 69, 106);
-}
