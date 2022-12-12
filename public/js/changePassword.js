@@ -13,11 +13,17 @@
 // "mongodb://localhost:27017/passport-forget", {
 //     useNewUrlParser: true
 // });
-
+//get username from URL
+let urlString = window.location.search;
+let urlParams = new URLSearchParams(urlString);
+let username = urlParams.get("userName");
+document.getElementById("username").innerText +="Username: "+username;
+document.getElementById('go_back').addEventListener('click',()=>{
+    window.location.href='management.html' + '?userName=' + username;
+})
 async function sendRequest(){
 
-
-    let usernameIn = document.getElementById("username").value;
+    let usernameIn = username;
     let passwordIn = document.getElementById("password").value;
     let newpasswordIn = document.getElementById("newPassword").value;
     console.log("sendRequest from changePassword.js")
