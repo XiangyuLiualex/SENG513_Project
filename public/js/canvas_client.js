@@ -2,9 +2,9 @@
 //---get room id from url----
 let urlString = window.location.search;
 let urlParams = new URLSearchParams(urlString);
-let roomID = urlParams.get("roomID");
+const roomID = urlParams.get("roomID");
 console.log(roomID)
-let username = urlParams.get("username");
+const username = urlParams.get("userName");
 
 /*
 //--send room id to next page
@@ -28,9 +28,10 @@ canvas.width = WIDTH;
 let canvasContext = canvas.getContext("2d");
 
 canvasContext.strokeStyle = currentColor;
+let subscribeStar = document.getElementById("subscribe").addEventListener('click',subscribe())
 let homeButton = document.getElementById('back_home');
-homeButton.addEventListener('click',()=>{
-    window.location.href = "homepage.html"+"?userName="+username;
+homeButton.addEventListener('click', () => {
+    window.location.href = "homepage.html" + "?userName=" + username;
 })
 let colorButtons = document.getElementsByClassName('color_button');
 let initialClorButton = document.getElementById('color_button_1');
@@ -83,18 +84,18 @@ canvas.addEventListener(myMove, e => {
     }
 })
 
-socket.emit('join', JSON.stringify({room: roomID}));
+socket.emit('join', JSON.stringify({ room: roomID }));
 
 function update(xStart, yStart, xEnd, yEnd, color, width) {
-    socket.emit('update', JSON.stringify({room: roomID, data: { xStart, yStart, xEnd, yEnd, color, width }}));
+    socket.emit('update', JSON.stringify({ room: roomID, data: { xStart, yStart, xEnd, yEnd, color, width } }));
 }
 function toDB() {
     if (!updating) {
-        socket.emit('toDB', JSON.stringify({room: roomID, data: canvas.toDataURL()}))
+        socket.emit('toDB', JSON.stringify({ room: roomID, data: canvas.toDataURL() }))
         updating = true;
         setTimeout(() => {
             updating = false;
-            socket.emit('toDB', JSON.stringify({room: roomID, data: canvas.toDataURL()}))
+            socket.emit('toDB', JSON.stringify({ room: roomID, data: canvas.toDataURL() }))
         }, 1000)
     }
 }
@@ -117,3 +118,30 @@ socket.on('history', (data) => {
         img.src = data;
     }
 })
+
+async function subscribe() {
+    console.log("User name: " + username + "\nRoom ID: " + roomID);
+
+    const response = await fetch("/subscribed_rooms/", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username,
+            roomId: roomID
+        }),
+    });
+    // response.json().then(data => {
+    response.json().then(data => {
+        console.log(typeof data);
+        if (data['stat'] == 1) {
+            alert(data['content']);
+            fecthHomepage();
+        } else {
+            alert(data['content']);
+        }
+        console.log(data);
+    });
+}

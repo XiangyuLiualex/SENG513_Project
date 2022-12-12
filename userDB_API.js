@@ -656,8 +656,9 @@ function getCanvasHistory(roomID) {
 
 }
 
-app.get("/management",(req,res) => {
+app.post("/management",(req,res) => {//victor
     let userName = req.body;
+    console.log(userName.username);
     if(userName != undefined) {
         console.log(userName.username);
         let db = new sqlite3.Database('./public/db/database.db',(err,data)=>{
@@ -674,7 +675,7 @@ app.get("/management",(req,res) => {
     }
 })
 
-app.get("/setting",(req,res)=>{
+app.get("/setting",(req,res)=>{//victor
     let roomID = res.body;
     var db=new sqlite3.Database("./public/db/database.db",(err)=>{
         if(!err){
@@ -690,7 +691,7 @@ app.get("/setting",(req,res)=>{
     })
 })
 
-app.post("/submitSetting",(req,res)=>{
+app.post("/submitSetting",(req,res)=>{//victor
     let setting = res.body;
     var db=new sqlite3.Database("./public/db/database.db",(err)=>{
         if(!err){
@@ -723,7 +724,7 @@ app.post("/submitSetting",(req,res)=>{
     })
 })
 
-app.post("/deleteRoom",(req,res)=>{
+app.post("/deleteRoom",(req,res)=>{//victor
     let roomid = req.body;
     var db=new sqlite3.Database("./public/db/database.db",(err)=>{
         if(!err){

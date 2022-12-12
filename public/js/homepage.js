@@ -1,65 +1,69 @@
 const urlParams = new URLSearchParams(window.location.search);
-const username = urlParams.get('username');
+const username = urlParams.get('userName');
 
 //2 ways of join room
-document.getElementById("join-room").addEventListener('click',async ()=>{
+document.getElementById("join-room").addEventListener('click', async () => {
     let roomIdIn = document.getElementById("room-code").value;
 
     const response = await fetch("/joinRoomById/", {
         method: 'POST',
         headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-                roomId: roomIdIn,
-                }),
-        });
-       
-        response.json().then(data => {
-            console.log(typeof data);
-            if(data['stat']==1){
-                alert("Join Room Successfully!!!");
-                // now implement the redirect to the room
-                window.location.href = "clientCanvas.html"+"?roomID="+roomIdIn+"&userName="+username;
-        
-            }else if(data['stat']==69){
-                alert("Room ID Invalid or Room is not open!");
-            } 
-            console.log(data);
-        });
+            roomId: roomIdIn,
+        }),
+    });
+
+    response.json().then(data => {
+        console.log(typeof data);
+        if (data['stat'] == 1) {
+            alert("Join Room Successfully!!!");
+            // now implement the redirect to the room
+            window.location.href = "clientCanvas.html" + "?roomID=" + roomIdIn + "&userName=" + username;
+
+        } else if (data['stat'] == 69) {
+            alert("Room ID Invalid or Room is not open!");
+        }
+        console.log(data);
+    });
 })
 
-async function joinRoom(el){
+async function joinRoom(el) {
     let roomIdIn = el.id;
-    
+
     const response = await fetch("/joinRoomById/", {
         method: 'POST',
         headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-                roomId: roomIdIn,
-                }),
-        });
-       
-        response.json().then(data => {
-            console.log(typeof data);
-            if(data['stat']==1){
-                alert("Join Room Successfully!!!");
-                // now implement the redirect to the room
-                window.location.href = "clientCanvas.html"+"?roomID="+roomIdIn+"&userName="+username;
-        
-            }else if(data['stat']==69){
-                alert("Room ID Invalid or Room is not open!");
-            } 
-            console.log(data);
-        });
+            roomId: roomIdIn,
+        }),
+    });
+
+    response.json().then(data => {
+        console.log(typeof data);
+        if (data['stat'] == 1) {
+            alert("Join Room Successfully!!!");
+            // now implement the redirect to the room
+            window.location.href = "clientCanvas.html" + "?roomID=" + roomIdIn + "&userName=" + username;
+
+        } else if (data['stat'] == 69) {
+            alert("Room ID Invalid or Room is not open!");
+        }
+        console.log(data);
+    });
 }
 
+document.getElementsByClassName("fa fa-gear btn-settings")[0].addEventListener('click', () => {
+    window.location.href = "management.html" + "?userName=" + username;
+})
 
-async function createPublicRoom(){
+
+async function createPublicRoom() {
     console.log("creating room");
     let roomID = makeid(4);
     let openStatus = 1;
@@ -70,26 +74,26 @@ async function createPublicRoom(){
     const response = await fetch("/createRoom/", {
         method: 'POST',
         headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             "roomID": roomID,
-            "openStatus" : openStatus,
-            "publicStatus" : publicStatus,
-            "owner" : owner,
-            "canvasHistory" : canvasHistory
+            "openStatus": openStatus,
+            "publicStatus": publicStatus,
+            "owner": owner,
+            "canvasHistory": canvasHistory
         })
-        });
+    });
 
     response.json().then(data => {
         console.log(typeof data);
         console.log(data);
     });
-    window.location.href = '../html/clientCanvas.html'+'?username='+owner+'&roomID='+roomID;
+    window.location.href = '../html/clientCanvas.html' + '?username=' + owner + '&roomID=' + roomID;
 }
 
-async function createPrivateRoom(){
+async function createPrivateRoom() {
     let roomID = makeid(4);
     let openStatus = 1;
     let publicStatus = 0;
@@ -99,23 +103,23 @@ async function createPrivateRoom(){
     const response = await fetch("/createRoom/", {
         method: 'POST',
         headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             "roomID": roomID,
-            "openStatus" : openStatus,
-            "publicStatus" : publicStatus,
-            "owner" : owner,
-            "canvasHistory" : canvasHistory
+            "openStatus": openStatus,
+            "publicStatus": publicStatus,
+            "owner": owner,
+            "canvasHistory": canvasHistory
         })
-        });
+    });
 
     response.json().then(data => {
         console.log(typeof data);
         console.log(data);
     });
-    window.location.href = '../html/clientCanvas.html'+'?username='+owner+'&roomID='+roomID;
+    window.location.href = '../html/clientCanvas.html' + '?userName=' + owner + '&roomID=' + roomID;
 
 }
 
@@ -132,7 +136,9 @@ function makeid(length) {
 
 
 // set a time interval to fetch data from database
-setInterval(async function(){
+fecthHomepage();
+setInterval(fecthHomepage, 5000);
+async function fecthHomepage() {
     console.log("fetching public rooms from database...");
     const response = await fetch("/show_rooms/", {
         method: 'GET',
@@ -146,12 +152,12 @@ setInterval(async function(){
         let subscribedRoomsList = document.getElementById("subscribed-rooms");
         let starredRoomsList = document.getElementById("starred-rooms");
 
-            
+
         publicRoomsList.innerHTML = "";
         subscribedRoomsList.innerHTML = "";
         starredRoomsList.innerHTML = "";
-        for(let i=0; i < data.length; i++){
-            if(data[i]['publicStatus'] == 1 && data[i]['openStatus'] == 1) {
+        for (let i = 0; i < data.length; i++) {
+            if (data[i]['publicStatus'] == 1 && data[i]['openStatus'] == 1) {
                 let row = document.createElement("div");
                 row.setAttribute("class", "row");
 
@@ -167,7 +173,7 @@ setInterval(async function(){
                 roomStar.setAttribute("style", "font-size:2rem;");
                 roomStar.setAttribute("aria-hidden", "false");
                 roomStar.setAttribute("onclick", "subscribe(this)");
-                roomStar.innerHTML="";
+                roomStar.innerHTML = "";
 
                 room.innerHTML = 'Room: ' + roomId;
 
@@ -176,7 +182,7 @@ setInterval(async function(){
 
                 publicRoomsList.appendChild(row);
             };
-            if(data[i]['owner'] == username){
+            if (data[i]['owner'] == username) {
                 var roomId = data[i]['roomID'];
                 let room = document.createElement("button");
                 room.setAttribute("class", "available-room-button");
@@ -186,7 +192,7 @@ setInterval(async function(){
                 subscribedRoomsList.appendChild(room);
             }
         }
-        
+
     });
 
 
@@ -202,13 +208,13 @@ setInterval(async function(){
         let starredRoomsList = document.getElementById("starred-rooms");
         starredRoomsList.innerHTML = "";
 
-        for(let i=0; i < data.length; i++){
-            if(data[i]['username'] == username){
+        for (let i = 0; i < data.length; i++) {
+            if (data[i]['username'] == username) {
 
                 let row = document.createElement("div");
                 row.setAttribute("class", "row");
 
-                var roomId = data[i]['roomID'];
+                var roomId = data[i]['roomId'];
                 let room = document.createElement("button");
                 room.setAttribute("class", "public-room-button");
                 room.setAttribute("id", roomId);
@@ -221,7 +227,7 @@ setInterval(async function(){
                 roomDelete.setAttribute("style", "font-size:2rem;");
                 roomDelete.setAttribute("aria-hidden", "false");
                 roomDelete.setAttribute("onclick", "unsubscribe(this)");
-                roomDelete.innerHTML="";
+                roomDelete.innerHTML = "";
 
 
                 row.appendChild(room);
@@ -230,18 +236,15 @@ setInterval(async function(){
                 starredRoomsList.appendChild(row);
             }
         }
-        
+
     });
-    
-        
-        
+
+
+
     // });
-}, 5000);
+}
 
-async function subscribe(el){
-
-    const urlParams = new URLSearchParams(window.location.search);
-    let username = urlParams.get('username');
+async function subscribe(el) {
     let roomId = el.id;
 
 
@@ -254,45 +257,47 @@ async function subscribe(el){
             'Accept': 'application/json'
         },
         body: JSON.stringify({
-                username: username,
-                roomId: roomId
-                }),
+            username: username,
+            roomId: roomId
+        }),
     });
     // response.json().then(data => {
     response.json().then(data => {
         console.log(typeof data);
-        if(data['stat']==1){
+        if (data['stat'] == 1) {
             alert(data['content']);
-        }else{
+            fecthHomepage();
+        } else {
             alert(data['content']);
         }
         console.log(data);
     });
 }
 
-async function unsubscribe(el){
-        let roomId = el.id;
+async function unsubscribe(el) {
+    let roomId = el.id;
 
-        const response = await fetch("/subscribed_rooms/", {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                    username: username,
-                    roomId: roomId
-                    }),
-        });
-        // response.json().then(data => {
-        response.json().then(data => {
-            console.log(typeof data);
-            if(data['stat']==1){
-                alert(data['content']);
-            }else{
-                alert(data['content']);
-            }
-            console.log(data);
-        });
+    const response = await fetch("/subscribed_rooms/", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username,
+            roomId: roomId
+        }),
+    });
+    // response.json().then(data => {
+    response.json().then(data => {
+        console.log(typeof data);
+        if (data['stat'] == 1) {
+            alert(data['content']);
+            fecthHomepage();
+        } else {
+            alert(data['content']);
+        }
+        console.log(data);
+    });
 
 }
