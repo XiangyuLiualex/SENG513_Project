@@ -28,30 +28,49 @@ r.innerText = roomID;
 
 let roomInfo;
 
-// async function sendRequest(){
-//     const response = await fetch("/setting/", {
-//     method: 'POST',
-//     headers: {
-//     'Accept': 'application/json',
-//     'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//             roomID: roomID
-//             }),
-//     });
-//     // response.json().then(data => {
-//     response.json().then(data => {
-//         console.log(data);
-//         roomInfo = data;
-        
-//     });
-// }
-
-//testing 
-v.innerText = "Public";
-visi = 0;
-s.innerText = "Open";
-stat = 0;
+async function sendRequest(){
+    const response = await fetch("/setting/", {
+    method: 'POST',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+            roomID: roomID
+            }),
+    });
+    // response.json().then(data => {
+    response.json().then(data => {
+        console.log(data);
+        roomInfo = data;
+        console.log(roomInfo[0].openStatus);
+        if(roomInfo[0].openStatus == 1) {
+            stat = 0;
+            s.innerText = "Open";
+        }
+        else {
+            stat = 1;
+            s.innerText = "Closed";
+        }
+        console.log(roomInfo[0].publicStatus);
+        if(roomInfo[0].publicStatus == 1) {
+            visi = 0;
+            v.innerText = "Public";
+        }
+        else {
+            visi = 1;
+            v.innerText = "Private";
+        }
+        console.log(stat);
+        console.log(visi);
+    });
+}
+sendRequest();
+// //testing 
+// v.innerText = "Public";
+// visi = 0;
+// s.innerText = "Open";
+// stat = 0;
 
 back.addEventListener("click", function() {
     window.location.href = 'management.html' + '?username=' + username;

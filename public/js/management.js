@@ -4,7 +4,7 @@
 // let username = urlParams.get("userName");
 
 //Testing
-let username = "Alex";
+let username = "Ricky";
 
 let owned_Rooms;
 
@@ -34,14 +34,16 @@ async function sendRequest(){
     });
 }
 
+sendRequest();
+
 function displayOwnedRooms() {
     let l = document.createElement("ul");
     let n = owned_Rooms.length;
     let i;
     for(i = 1; i < (n+1); i++) {
-        let rID = owned_Rooms[i-1];
+        let rID = owned_Rooms[i-1].roomID;
         let li = document.createElement("li");
-        let str = 'Room ' + i + ': ' + owned_Rooms[i-1];
+        let str = 'Room ' + i + ': ' + owned_Rooms[i-1].roomID;
         li.innerText = str;
         li.style.fontSize = "25px";
         li.onclick = function () {

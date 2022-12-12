@@ -143,13 +143,13 @@ app.get("/show_data",(req,res)=>{
 
 app.post("/management",(req,res) => {
     let userName = req.body;
-    console.log(userName.username);
+    // console.log(userName.username);
     if(userName != undefined) {
-        console.log(userName.username);
+        // console.log(userName.username);
         let db = new sqlite3.Database('./public/db/database.db',(err,data)=>{
             if(!err){
                 //******* change */ owned_Rooms
-                db.all('select owned_Rooms from userInfo where username = "'+user.username+'"', (err,data)=>{
+                db.all('select roomID from rooms where owner = "'+userName.username+'"', (err,data)=>{
                     if(!err){
                         console.log("length: "+data.length);
                         res.send(JSON.stringify(data));
@@ -161,10 +161,11 @@ app.post("/management",(req,res) => {
 })
 
 app.post("/setting",(req,res)=>{
-    let roomID = res.body;
+    let roomID = req.body;
+    console.log(roomID);
     var db=new sqlite3.Database("./public/db/database.db",(err)=>{
         if(!err){
-            db.all('select openStatus and publicStatus from rooms where roomID = "'+roomID.roomID+'"', (err,data)=>{
+            db.all('select openStatus, publicStatus from rooms where roomID = "'+roomID.roomID+'"', (err,data)=>{
                 if(err){
                     console.log(err);
                 }else{
@@ -177,7 +178,7 @@ app.post("/setting",(req,res)=>{
 })
 
 app.post("/submitSetting",(req,res)=>{
-    let setting = res.body;
+    let setting = req.body;
     var db=new sqlite3.Database("./public/db/database.db",(err)=>{
         if(!err){
             let oState, pState;
@@ -197,12 +198,12 @@ app.post("/submitSetting",(req,res)=>{
             db.run('UPDATE rooms SET openStatus = "'+oState+'", publicStatus = "'+pState+'" WHERE roomID = "'+setting.roomID+'"',(err)=>{
                 if(!err){
                     let ans = 1;
-                    return res.send(ans)
+                    return res.send(JSON.stringify(ans));
                     }
                 else{
                     let ans = 0;
                     console.log(err);
-                    return res.send(ans)
+                    return res.send(JSON.stringify(ans));
                 }
             })
         }
@@ -211,35 +212,26 @@ app.post("/submitSetting",(req,res)=>{
 
 app.post("/deleteRoom",(req,res)=>{
     let roomid = req.body;
-    var db=new sqlite3.Database("./public/db/database.db",(err)=>{
+    var db1=new sqlite3.Database("./public/db/database.db",(err)=>{
         if(!err){
-            let oState, pState;
-            if(setting.openStat == 0) {
-                oState = 1;
-            }
-            else {
-                oState = 0;
-            }
-            if(setting.publicStat == 0) {
-                pState = 1;
-            }
-            else {
-                pState = 0;
-            }
-
-            db.run('DELETE FROM rooms WHERE roomID = "'+roomid.roomID+'"',(err)=>{
-                if(!err){
-                    let ans = 1;
-                    return res.send(ans)
-                    }
-                else{
-                    let ans = 0;
-                    console.log(err);
-                    return res.send(ans)
-                }
+            db1.run('DELETE FROM rooms WHERE roomID = "'+roomid.roomID+'"',(err)=>{
             })
         }
     })
+    var db2=new sqlite3.Database("./public/db/database.db",(err)=>{
+        if(!err){
+            // db2.all('select username from subscribedRooms where roomId = "'+roomid.roomID+'"', (err,data)=>{
+            //     console.log(data);
+            // });
+            db2.run('DELETE FROM subscribedRooms WHERE roomId = "'+roomid.roomID+'"',(err,data)=>{
+
+            })
+        }
+    })
+    
+    let ans = 1;
+    return res.send(JSON.stringify(ans));
+
 })
 
 
