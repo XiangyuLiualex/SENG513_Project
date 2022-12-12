@@ -660,7 +660,7 @@ app.get("/management",(req,res) => {
     let userName = req.body;
     if(userName != undefined) {
         console.log(userName.username);
-        let db = new sqlite3.Database('./public/db/userAccount.db',(err,data)=>{
+        let db = new sqlite3.Database('./public/db/database.db',(err,data)=>{
             if(!err){
                 //******* change */ owned_Rooms
                 db.all('select owned_Rooms from userInfo where username = "'+user.username+'"', (err,data)=>{
@@ -676,7 +676,7 @@ app.get("/management",(req,res) => {
 
 app.get("/setting",(req,res)=>{
     let roomID = res.body;
-    var db=new sqlite3.Database("./public/db/userAccount.db",(err)=>{
+    var db=new sqlite3.Database("./public/db/database.db",(err)=>{
         if(!err){
             db.all('select openStatus and publicStatus from rooms where roomID = "'+roomID.roomID+'"', (err,data)=>{
                 if(err){
@@ -692,7 +692,7 @@ app.get("/setting",(req,res)=>{
 
 app.post("/submitSetting",(req,res)=>{
     let setting = res.body;
-    var db=new sqlite3.Database("./public/db/userAccount.db",(err)=>{
+    var db=new sqlite3.Database("./public/db/database.db",(err)=>{
         if(!err){
             let oState, pState;
             if(setting.openStat == 0) {
@@ -725,7 +725,7 @@ app.post("/submitSetting",(req,res)=>{
 
 app.post("/deleteRoom",(req,res)=>{
     let roomid = req.body;
-    var db=new sqlite3.Database("./public/db/userAccount.db",(err)=>{
+    var db=new sqlite3.Database("./public/db/database.db",(err)=>{
         if(!err){
             let oState, pState;
             if(setting.openStat == 0) {
