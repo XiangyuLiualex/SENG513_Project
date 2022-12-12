@@ -22,11 +22,15 @@ async function sendRequest(){
             console.log(typeof data);
             if(data['stat']==1){
                 alert("Deleting Account Successfully!!!");
+                // go to index.html
+                //  window.location.href = "index.html";
             }else if (data['stat']==0){
                 alert("Deleting Account Fail!");
             }else if(data['stat']==69){
                 alert("You have entered wrong username or password!");
-            } 
+            } else{
+                alert("Something went wrong!");
+            }
             console.log(data);
         });
 
