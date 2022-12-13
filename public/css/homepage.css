@@ -1,7 +1,7 @@
 /* Homepage */
 body {
     margin: 0;  
-	background-color:crimson;
+	background-color:#f8f3e9;
     /* padding: 20px; */
     text-align: center;
 }
@@ -129,7 +129,7 @@ body {
     border:rgb(0, 0, 0) 3px solid;
     width: 80%;
     justify-content: center;
-    height: 50%;
+    height: 40%;
     align-self: center;
     align-items: center;
     vertical-align:middle;
@@ -177,7 +177,12 @@ body {
 
 /* Header */
 .custom-letters{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     position: relative;
+    flex-wrap: wrap;
     padding: 0;
     margin: 0;
     font-size: 0px;
@@ -223,7 +228,6 @@ body {
 
 /* Home Button */
 .btn-home{
-    position: absolute;
     top: 0;
     left: 0;
     padding: 1rem;
@@ -233,7 +237,6 @@ body {
     color: black;
 }
 .btn-settings{
-    position: absolute;
     top: 4rem;
     left: 0.1rem;
     padding: 1rem;
@@ -284,4 +287,13 @@ body {
         color: rgb(255, 0, 153);
         font-size: 3rem !important;
     }
+}
+.home-buttons{
+    display: flex;
+    height: 2.2rem;
+    flex-direction: column;
+}
+.home-buttons>i{
+    padding: 0;
+    margin: 2%;
 }
