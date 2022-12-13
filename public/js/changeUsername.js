@@ -30,6 +30,8 @@ async function sendRequest() {
         console.log(typeof data);
         if (data['stat'] == 1) {
             alert("Changed Username Successfully!!!");
+            username = document.getElementById("newUsername").value;
+            document.getElementById('username').innerText = "Current Username: " + username;
         } else if (data['stat'] == 0) {
             alert("Changed Username fail!");
         } else if (data['stat'] == 69) {

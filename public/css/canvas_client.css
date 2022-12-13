@@ -2,18 +2,22 @@ body {
   background-color: #f8f3e9;
   text-align: center;
 }
-
+*{
+  font-size: 95%;
+}
 #home_buttons{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: max;
   align-items: center;
 }
+
 #tool_bar {
   background-color: antiquewhite;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap:nowrap;
   align-items: center;
   width: 95%;
@@ -41,7 +45,7 @@ input {
 }
 
 #color_buttons {
-  border: 3px solid rgb(155, 101, 30);
+  border-left: 3px solid rgb(155, 101, 30);
   padding: 10px;
   display: flex;
   flex-direction: row;
@@ -121,4 +125,12 @@ input {
 
 #subscribe_star:hover{
   color:gold;
+}
+
+#tools{
+  width: max-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }

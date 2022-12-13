@@ -5,21 +5,22 @@
     min-height: 100%;
     align-items: center;
     justify-content: center;
-    background-color: #e70707;
+    background-color: white;
     font-family: 'Open Sans', sans-serif;
   }
  .cardStyle {
     width: 600px;
     height: 600px;
     border-color: rgb(180, 139, 139);
-    background: rgb(255, 255, 255);
+    background: #f8f3e9;
     padding: 36px 0;
     border-radius: 20px;
     margin: 30px 0;
     box-shadow: 0px 0 2px 0 rgba(74, 62, 62, 0.25);
   }
 #signupLogo {
-  max-height: 200px;
+  width: 60%;
+  height: 25%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -44,12 +45,19 @@
   margin-bottom: 6px;
   margin-top: 24px;
 }
-  .inputDiv {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-  }
+.inputDiv {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+.usernameDiv{
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
 input {
   height: 40px;
   font-size: 16px;
@@ -102,4 +110,91 @@ button[disabled] {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+.custom-letters{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  font-size: 0px;
+  align-self: stretch;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+}
+
+.color_red{
+  color: red;
+  font-size: 5rem;
+  
+}
+.color_orange{
+  color: rgb(255,122,0);
+  font-size: 5rem;
+}
+.color_yellow{
+  color: rgb(250,255,0);
+  font-size: 5rem;
+}
+.color_green{
+  color: rgb(66,255,0);
+  font-size: 5rem;
+}
+.color_cyan{
+  color: rgb(0, 240, 255);
+  font-size: 5rem;
+}
+.color_blue{
+  color: rgb(0, 71, 255);
+  font-size: 5rem;
+}
+.color_purple{
+  color: rgb(112, 0, 255);
+  font-size: 5rem;
+}
+.color_pink{
+  color: rgb(255, 0, 153);
+  font-size: 5rem;
+}
+@media all and (max-width: 400px) {
+  .box-su{
+      height: 100% !important;
+      width: 100% !important;
+  }
+  .color_red{
+      color: red;
+      font-size: 3rem !important;
+  }
+  .color_orange{
+      color: rgb(255,122,0);
+      font-size: 3rem !important;
+  }
+  .color_yellow{
+      color: rgb(250,255,0);
+      font-size: 3rem !important;
+  }
+  .color_green{
+      color: rgb(66,255,0);
+      font-size: 3rem !important;
+  }
+  .color_cyan{
+      color: rgb(0, 240, 255);
+      font-size: 3rem !important;
+  }
+  .color_blue{
+      color: rgb(0, 71, 255);
+      font-size: 3rem !important;
+  }
+  .color_purple{
+      color: rgb(112, 0, 255);
+      font-size: 3rem !important;
+  }
+  .color_pink{
+      color: rgb(255, 0, 153);
+      font-size: 3rem !important;
+  }
 }

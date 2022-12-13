@@ -17,7 +17,7 @@
 let urlString = window.location.search;
 let urlParams = new URLSearchParams(urlString);
 let username = urlParams.get("userName");
-document.getElementById("username").innerText +="Username: "+username;
+document.getElementById("username").innerText ="Username: "+username;
 document.getElementById('go_back').addEventListener('click',()=>{
     window.location.href='management.html' + '?userName=' + username;
 })
