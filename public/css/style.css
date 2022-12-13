@@ -1,7 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;  
-	background-color:crimson;
+	background-color:#f8f3e9;
     text-align: center;
 }
 
@@ -74,11 +74,11 @@ body {
         width: 100%;
     }
     .butt {
-        font-size: 200%;
+        font-size: 100%;
     }
 
     .sign-up-header{
-        font-size: 6rem;
+        font-size: 3rem;
     }
     .box-su{
         height: 100% !important;
