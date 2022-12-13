@@ -90,7 +90,7 @@ async function createPublicRoom() {
         console.log(typeof data);
         console.log(data);
     });
-    window.location.href = '../html/clientCanvas.html' + '?username=' + owner + '&roomID=' + roomID;
+    window.location.href = '../html/clientCanvas.html' + '?userName=' + owner + '&roomID=' + roomID;
 }
 
 async function createPrivateRoom() {

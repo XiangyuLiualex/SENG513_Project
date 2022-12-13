@@ -16,19 +16,32 @@
     <div class="mainDiv">
         <div class="cardStyle">
 
-            <img src="..\images\logo.png" id="signupLogo" />
+            <span class="custom-letters">
+                <div>
+                    <span class="color_red">D</span>
+                    <span class="color_orange">r</span>
+                    <span class="color_yellow">a</span>
+                    <span class="color_green">w</span>
+                </div>
+                <div><span class="color_cyan">&nbsp;</span>
+                    <span class="color_cyan">C</span>
+                    <span class="color_blue">o</span>
+                    <span class="color_purple">l</span>
+                    <span class="color_pink">a</span>
+                    <span class="color_red">b</span>
+                </div>
+            </span>
 
             <h2 class="formTitle">
                 Delete your Account
             </h2>
 
-            <div class="inputDiv">
-                <!-- <form action="/changepassword" method="post"> -->
-                <input type="text" placeholder="Username" name="username" class="inputLabel" id="username">
+            <div class="usernameDiv">
+                <p id="username"></p>
             </div>
 
             <div class="inputDiv">
-                <input type="password" placeholder="Current Password" name="oldpassword" class="inputLabel"
+                <input type="password" placeholder="Your Password" name="oldpassword" class="inputLabel"
                     id="password">
             </div>
 
@@ -39,8 +52,7 @@
                 </button>
             </div>
             <div class="buttonWrapper" class="inputDiv">
-                <button type="submit" id="submitButton" class="submitButton pure-button pure-button-primary"
-                    onclick="location.href='../index.html'">
+                <button type="submit" id="go_back" class="submitButton pure-button pure-button-primary">
                     Go Back
                 </button>
             </div>

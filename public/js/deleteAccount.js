@@ -1,7 +1,13 @@
+//get username from URL
+let urlString = window.location.search;
+let urlParams = new URLSearchParams(urlString);
+let username = urlParams.get("userName");
+document.getElementById("username").innerText ="Username: "+username;
+document.getElementById('go_back').addEventListener('click',()=>{
+    window.location.href='management.html' + '?userName=' + username;
+})
 async function sendRequest(){
-
-
-    let usernameIn = document.getElementById("username").value;
+    let usernameIn = username;
     let passwordIn = document.getElementById("password").value;
     console.log("sendRequest from deleteAccount.js")
     console.log("DELETING User name: "+usernameIn+"\nPassword: "+passwordIn);
@@ -23,7 +29,7 @@ async function sendRequest(){
             if(data['stat']==1){
                 alert("Deleting Account Successfully!!!");
                 // go to index.html
-                //  window.location.href = "index.html";
+                window.location.href = "../index.html";
             }else if (data['stat']==0){
                 alert("Deleting Account Fail!");
             }else if(data['stat']==69){

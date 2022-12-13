@@ -15,6 +15,9 @@ document.getElementById('change_username').addEventListener('click',()=>{
 document.getElementById('change_password').addEventListener('click',()=>{
     window.location.href='changePassword.html' + '?userName=' + username;
 })
+document.getElementById('delete_account').addEventListener('click',()=>{
+    window.location.href='deleteAccount.html' + '?userName=' + username;
+})
 let u = document.getElementById("user_name");
 let r = document.getElementById("rooms");
 u.innerText = username;
