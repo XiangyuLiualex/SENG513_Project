@@ -68,18 +68,56 @@ body {
 }
 
 
-/* Mobile friendly */
-@media all and (max-width: 400px) {
-    .box{
-        width: 100%;
-    }
-    .butt {
-        font-size: 100%;
-    }
-
-    .sign-up-header{
-        font-size: 3rem;
-    }
+.custom-letters{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    font-size: 0px;
+    align-self: stretch;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+  }
+  
+  .color_red{
+    color: red;
+    font-size: 5rem;
+    
+  }
+  .color_orange{
+    color: rgb(255,122,0);
+    font-size: 5rem;
+  }
+  .color_yellow{
+    color: rgb(250,255,0);
+    font-size: 5rem;
+  }
+  .color_green{
+    color: rgb(66,255,0);
+    font-size: 5rem;
+  }
+  .color_cyan{
+    color: rgb(0, 240, 255);
+    font-size: 5rem;
+  }
+  .color_blue{
+    color: rgb(0, 71, 255);
+    font-size: 5rem;
+  }
+  .color_purple{
+    color: rgb(112, 0, 255);
+    font-size: 5rem;
+  }
+  .color_pink{
+    color: rgb(255, 0, 153);
+    font-size: 5rem;
+  }
+  @media all and (max-width: 400px) {
     .box-su{
         height: 100% !important;
         width: 100% !important;
@@ -116,8 +154,7 @@ body {
         color: rgb(255, 0, 153);
         font-size: 3rem !important;
     }
-}
-
+  }
 
 /* login and sign up */
 
@@ -131,66 +168,6 @@ body {
     align-items: center;
     vertical-align:middle;
     border-radius: 2rem;
-
-}
-
-.custom-letters{
-    position: relative;
-    padding: 0;
-    margin: 0;
-    font-size: 0px;
-    align-self: stretch;
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: black;
-
-}
-
-.color_red{
-    color: red;
-    font-size: 5rem;
-    
-}
-.color_orange{
-    color: rgb(255,122,0);
-    font-size: 5rem;
-}
-.color_yellow{
-    color: rgb(250,255,0);
-    font-size: 5rem;
-}
-.color_green{
-    color: rgb(66,255,0);
-    font-size: 5rem;
-}
-.color_cyan{
-    color: rgb(0, 240, 255);
-    font-size: 5rem;
-}
-.color_blue{
-    color: rgb(0, 71, 255);
-    font-size: 5rem;
-}
-.color_purple{
-    color: rgb(112, 0, 255);
-    font-size: 5rem;
-}
-.color_pink{
-    color: rgb(255, 0, 153);
-    font-size: 5rem;
-}
-
-#p {
-    height: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#pic{
-    width: 60%;
-    height: 25%;
 
 }
 
