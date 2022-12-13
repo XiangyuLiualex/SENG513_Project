@@ -90,7 +90,7 @@ canvas.addEventListener(myMove, e => {
     if (drawing) {
         let xInCanvas = e.clientX - canvas.getBoundingClientRect().left;
         let yInCanvas = e.clientY - canvas.getBoundingClientRect().top;
-        update(xOffset, yOffset, xInCanvas, yInCanvas, currentColor, strokeInput.value);
+        update(xOffset, yOffset, xInCanvas, yInCanvas, currentColor, strokeInput.value, canvasContext.globalCompositeOperation);
         toDB();
         xOffset = xInCanvas;
         yOffset = yInCanvas;
@@ -110,8 +110,8 @@ saveButton.addEventListener('click', () => {
 
 socket.emit('join', JSON.stringify({ room: roomID }));
 
-function update(xStart, yStart, xEnd, yEnd, color, width) {
-    socket.emit('update', JSON.stringify({ room: roomID, data: { xStart, yStart, xEnd, yEnd, color, width } }));
+function update(xStart, yStart, xEnd, yEnd, color, width, globalCompositeOperation) {
+    socket.emit('update', JSON.stringify({ room: roomID, data: { xStart, yStart, xEnd, yEnd, color, width,  globalCompositeOperation} }));
 }
 function toDB() {
     if (!updating) {
@@ -127,6 +127,7 @@ function drawLine(data) {//draw a line in canvas
     canvasContext.beginPath();
     canvasContext.strokeStyle = data.color;
     canvasContext.lineWidth = data.width;
+    canvasContext.globalCompositeOperation = data.globalCompositeOperation;
     canvasContext.moveTo(data.xStart, data.yStart);
     canvasContext.lineTo(data.xEnd, data.yEnd);
     canvasContext.stroke();
