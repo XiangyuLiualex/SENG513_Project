@@ -25,11 +25,11 @@ let currentStroke;
 let canvas = document.getElementsByTagName("canvas")[0];
 canvas.height = HEIGHT;
 canvas.width = WIDTH;
-document.getElementById('room_ID').innerText = 'Room: '+roomID;
+document.getElementById('room_ID').innerText = 'Room: ' + roomID;
 let canvasContext = canvas.getContext("2d");
 
 canvasContext.strokeStyle = currentColor;
-let subscribeStar = document.getElementById("subscribe_star").addEventListener('click',subscribe)
+let subscribeStar = document.getElementById("subscribe_star").addEventListener('click', subscribe)
 let homeButton = document.getElementById('back_home');
 homeButton.addEventListener('click', () => {
     window.location.href = "homepage.html" + "?userName=" + username;
@@ -43,20 +43,21 @@ Array.from(colorButtons).forEach((colorButton) => {
     colorButton.addEventListener('click', () => {
         currentColor = getComputedStyle(colorButton, null).getPropertyValue("background-color");
         canvasContext.strokeStyle = currentColor;
+        canvasContext.globalCompositeOperation = 'source-over';
         Array.from(colorButtons).forEach((button) => {
             button.style.border = 'grey 4px none';
         })
-        eraser.style.border= 'grey 4px none';
+        eraser.style.border = 'grey 4px none';
         colorButton.style.border = 'grey 4px solid';
     })
 })
-eraser.addEventListener('click',()=>{
+eraser.addEventListener('click', () => {
     currentColor = getComputedStyle(eraser, null).getPropertyValue("background-color");
-    canvasContext.strokeStyle = currentColor;
+    canvasContext.globalCompositeOperation = 'destination-out'
     Array.from(colorButtons).forEach((button) => {
         button.style.border = 'grey 4px none';
     })
-    eraser.style.border= 'grey 4px solid';
+    eraser.style.border = 'grey 4px solid';
 })
 let strokeInput = document.getElementById('stroke_size');
 currentStroke = strokeInput;
@@ -94,6 +95,17 @@ canvas.addEventListener(myMove, e => {
         xOffset = xInCanvas;
         yOffset = yInCanvas;
     }
+})
+
+let saveButton = document.getElementById('save');
+saveButton.addEventListener('click', () => {
+    let downloadLink = document.createElement('a');
+    downloadLink.setAttribute('download', 'CanvasAsImage.jpeg');
+    canvas.toBlob(function(blob) {
+      let url = URL.createObjectURL(blob);
+      downloadLink.setAttribute('href', url);
+      downloadLink.click();
+    });
 })
 
 socket.emit('join', JSON.stringify({ room: roomID }));

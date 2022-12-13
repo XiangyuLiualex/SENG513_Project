@@ -106,8 +106,7 @@ input {
 }
 
 .eraser{
-  border: grey 4px none;
-  background-color: white;
+  border: black 4px none;
   width: fit-content;
   height: fit-content;
 }
