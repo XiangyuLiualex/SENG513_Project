@@ -19,7 +19,7 @@ body {
     display: flex;
     align-self: center;
     height: 25%;
-    width: 60%;
+    width: 80%;
     padding: 0;
 }
 
@@ -127,9 +127,9 @@ body {
     justify-content: center;
     background-color:white;
     border:rgb(0, 0, 0) 3px solid;
-    width: 60%;
+    width: 80%;
     justify-content: center;
-    height: 40%;
+    height: 50%;
     align-self: center;
     align-items: center;
     vertical-align:middle;
@@ -245,4 +245,43 @@ body {
 
 .room-button:hover{
     background-color: rgb(251, 69, 106);
+}
+
+@media all and (max-width: 400px) {
+    .box-su{
+        height: 100% !important;
+        width: 100% !important;
+    }
+    .color_red{
+        color: red;
+        font-size: 3rem !important;
+    }
+    .color_orange{
+        color: rgb(255,122,0);
+        font-size: 3rem !important;
+    }
+    .color_yellow{
+        color: rgb(250,255,0);
+        font-size: 3rem !important;
+    }
+    .color_green{
+        color: rgb(66,255,0);
+        font-size: 3rem !important;
+    }
+    .color_cyan{
+        color: rgb(0, 240, 255);
+        font-size: 3rem !important;
+    }
+    .color_blue{
+        color: rgb(0, 71, 255);
+        font-size: 3rem !important;
+    }
+    .color_purple{
+        color: rgb(112, 0, 255);
+        font-size: 3rem !important;
+    }
+    .color_pink{
+        color: rgb(255, 0, 153);
+        font-size: 3rem !important;
+    }
 }
