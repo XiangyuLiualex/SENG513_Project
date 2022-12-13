@@ -1,6 +1,6 @@
 body {
     margin: 0;  
-	background-color:crimson;
+	background-color:#f8f3e9;
     /* padding: 20px; */
     text-align: center;
     font-family: Arial, Helvetica, sans-serif
@@ -95,7 +95,7 @@ body {
 
 .butt:hover{
     color: white;
-    background-color: crimson;
+    background-color: antiquewhite;
 }
 
 .butt2 {
@@ -113,7 +113,7 @@ body {
 }
 .butt2:hover{
     color: white;
-    background-color: crimson;
+    background-color: antiquewhite;
 }
 
 .inputbox {
@@ -185,7 +185,7 @@ body {
     margin-top: 5px;
     font-weight: bold;
     font-size: 30px;
-    color: crimson;
+    color: rgb(187, 135, 68);
 }
 
 #user_but {
@@ -215,7 +215,7 @@ body {
 }
 
 #rooms li:hover {
-    color: crimson;
+    color: rgb(72, 43, 4);
     cursor: pointer;
 }
 
@@ -224,9 +224,8 @@ body {
 }
 
 #visibility button {
-    background-color: crimson;
+    background-color: antiquewhite;
     border: 1px solid black;
-    color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -255,9 +254,8 @@ body {
 }
 
 #status button {
-    background-color: crimson;
+    background-color: antiquewhite;
     border: 1px solid black;
-    color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -280,7 +278,17 @@ body {
     cursor: pointer;
 }
 
-
+.butt2{
+    background-color: antiquewhite;
+    border: 1px solid black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 
 #pic{
     width: 60%;
