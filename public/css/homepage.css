@@ -5,7 +5,9 @@ body {
     /* padding: 20px; */
     text-align: center;
 }
-
+.container{
+    height: 700px;
+}
 .home-wrapper{
     height: 100%;
     width: 100%;
