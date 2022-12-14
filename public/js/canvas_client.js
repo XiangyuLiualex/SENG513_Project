@@ -124,6 +124,7 @@ function toDB() {
     }
 }
 function drawLine(data) {//draw a line in canvas
+    let currentEraser = canvasContext.globalCompositeOperation;
     canvasContext.beginPath();
     canvasContext.strokeStyle = data.color;
     canvasContext.lineWidth = data.width;
@@ -131,6 +132,7 @@ function drawLine(data) {//draw a line in canvas
     canvasContext.moveTo(data.xStart, data.yStart);
     canvasContext.lineTo(data.xEnd, data.yEnd);
     canvasContext.stroke();
+    canvasContext.globalCompositeOperation = currentEraser;
 }
 
 socket.on('history', (data) => {
