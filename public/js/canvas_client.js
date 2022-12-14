@@ -132,7 +132,7 @@ function drawLine(data) {//draw a line in canvas
     canvasContext.moveTo(data.xStart, data.yStart);
     canvasContext.lineTo(data.xEnd, data.yEnd);
     canvasContext.stroke();
-    canvasContext.globalCompositeOperation = currentEraser;
+    //canvasContext.globalCompositeOperation = currentEraser;
 }
 
 socket.on('history', (data) => {
