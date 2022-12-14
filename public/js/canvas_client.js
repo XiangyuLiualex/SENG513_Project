@@ -22,6 +22,7 @@ let drawing = false;
 let updating = false;
 let currentColor = 'black';
 let currentStroke;
+let currentEraser = 'source-over';
 let canvas = document.getElementsByTagName("canvas")[0];
 canvas.height = HEIGHT;
 canvas.width = WIDTH;
@@ -43,7 +44,7 @@ Array.from(colorButtons).forEach((colorButton) => {
     colorButton.addEventListener('click', () => {
         currentColor = getComputedStyle(colorButton, null).getPropertyValue("background-color");
         canvasContext.strokeStyle = currentColor;
-        canvasContext.globalCompositeOperation = 'source-over';
+        currentEraser = 'source-over';
         Array.from(colorButtons).forEach((button) => {
             button.style.border = 'grey 4px none';
         })
@@ -53,7 +54,7 @@ Array.from(colorButtons).forEach((colorButton) => {
 })
 eraser.addEventListener('click', () => {
     currentColor = getComputedStyle(eraser, null).getPropertyValue("background-color");
-    canvasContext.globalCompositeOperation = 'destination-out'
+    currentEraser = 'destination-out';
     Array.from(colorButtons).forEach((button) => {
         button.style.border = 'grey 4px none';
     })
@@ -90,7 +91,7 @@ canvas.addEventListener(myMove, e => {
     if (drawing) {
         let xInCanvas = e.clientX - canvas.getBoundingClientRect().left;
         let yInCanvas = e.clientY - canvas.getBoundingClientRect().top;
-        update(xOffset, yOffset, xInCanvas, yInCanvas, currentColor, strokeInput.value, canvasContext.globalCompositeOperation);
+        update(xOffset, yOffset, xInCanvas, yInCanvas, currentColor, strokeInput.value, currentEraser);
         toDB();
         xOffset = xInCanvas;
         yOffset = yInCanvas;
@@ -124,7 +125,6 @@ function toDB() {
     }
 }
 function drawLine(data) {//draw a line in canvas
-    let currentEraser = canvasContext.globalCompositeOperation;
     canvasContext.beginPath();
     canvasContext.strokeStyle = data.color;
     canvasContext.lineWidth = data.width;
